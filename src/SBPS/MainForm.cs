@@ -243,9 +243,9 @@ internal sealed class MainForm : Form
         };
         actionLayout.Controls.Add(_exitButton);
         actionLayout.Controls.Add(exitGap);
-        actionLayout.Controls.Add(_showToolTipsCheckBox);
         actionLayout.Controls.Add(_languageComboBox);
         actionLayout.Controls.Add(_helpButton);
+        actionLayout.Controls.Add(_showToolTipsCheckBox);
         headerActions.Controls.Add(_headerIdentityLabel, 0, 0);
         headerActions.Controls.Add(actionLayout, 0, 1);
         headerLayout.Controls.Add(brandLayout, 0, 0);
