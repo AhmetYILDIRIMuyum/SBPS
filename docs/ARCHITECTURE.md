@@ -37,7 +37,7 @@ The parser is intentionally conservative. It does not claim exact results for PD
 
 WebView2 renders supported files and submits each file as a separate print job. Text-like files are HTML-encoded and wrapped in a controlled printable document. If enabled, a minimal white HTML page is submitted between consecutive queue entries.
 
-By default the queue stops after an error so later files are not sent out of order. When **Skip failed files** is on, the failed file is logged and the queue continues. Retry behavior is retained for transient print failures. The user can request cancellation; the current operation completes or returns before the queue stops.
+**Skip failed files** starts on. A failed file is logged and the queue continues. Turn the option off when the queue should stop after an error so later files are not sent out of order. Retry behavior is retained for transient print failures. The user can request cancellation; the current operation completes or returns before the queue stops. Optional control tips follow the active language and appear only while **Tips** is on.
 
 ## Compatibility
 

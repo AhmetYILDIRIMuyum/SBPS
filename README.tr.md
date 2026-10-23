@@ -29,7 +29,8 @@ Her kaynak dosya ayrı bir yazdırma işi olarak gönderilir. Kullanıcı isters
 - Yazdırmadan önce isteğe bağlı Windows yazıcı ayarları
 - Varsayılan açık, dosyalar arasında isteğe bağlı boş ayırıcı sayfa
 - Sıralı ve durdurulabilir işlem; dosya durumları ve tanılama kaydı
-- İsteğe bağlı hatalı dosyayı geçme. Kapalıyken hata kalan dosyaları durdurur
+- Hatalı dosyayı geç varsayılan açıktır. Bir hata sıranın kalanını durdurmaz. Kapatılırsa kalan dosyalar gitmez
+- İpuçları Türkçe ve İngilizcedir. İpuçları anahtarı kapalı başlar; açılınca görünür
 - Windows bölge/dil ayarından otomatik belirlenen ve ekrandan değiştirilebilen Türkçe/İngilizce arayüz
 - Yüksek DPI uyumlu Windows Forms arayüzü ve bölümlü uygulama içi yardım penceresi
 - Ekranda Çıkış düğmesi; yazdırma sürerken kapanış onay ister
@@ -102,7 +103,7 @@ Tek NuGet bağımlılığı `Microsoft.Web.WebView2` paketidir.
 
 Yazıcılar Windows'tan okunur. Nihai çift taraf davranışı ve desteklenen seçenekler yazıcı sürücüsüne bağlıdır.
 
-Yazdırma seçenekleri oturumlar arasında saklanmaz. Ayırıcı sayfa ve çift taraf seçeneği açık; **Önce ayarları göster** ve **Hatalı dosyayı geç** kapalı başlar. Son yüklenen klasör `%LocalAppData%\FilePrintStudio\last-folder.txt` dosyasına yazılır. Günlükler ve WebView2 önbelleği önceki kurulumlarla uyum için `%LocalAppData%\FilePrintStudio` altında kalır.
+Yazdırma seçenekleri oturumlar arasında saklanmaz. Ayırıcı sayfa, çift taraf ve **Hatalı dosyayı geç** açık başlar. **Önce ayarları göster** ve **İpuçları** kapalı başlar. Son yüklenen klasör `%LocalAppData%\FilePrintStudio\last-folder.txt` dosyasına yazılır. Günlükler ve WebView2 önbelleği önceki kurulumlarla uyum için `%LocalAppData%\FilePrintStudio` altında kalır.
 
 ## Sınırlamalar
 

@@ -40,7 +40,9 @@ When separators are enabled, SBPS inserts one blank job only between printable f
 
 Select **Send to Printer**. The confirmation dialog shows the printable-file count, printer, two-sided state, copy count, and separator state.
 
-After confirmation, progress and row statuses are updated in order. **Skip failed files** starts off. While it is off, a file that fails after the built-in retries stops the remaining queue. While it is on, that file is marked as an error, written to the diagnostic log, and the queue continues. The two modes cannot be active together. Use **Stop** to request cancellation.
+After confirmation, progress and row statuses are updated in order. **Skip failed files** starts on. While it is on, a file that fails after the built-in retries is marked as an error, written to the diagnostic log, and the queue continues. Turn it off when a failure should stop the remaining queue. The two modes cannot be active together. Use **Stop** to request cancellation.
+
+**Tips**, next to the language selector, starts off. Turn it on to show Turkish or English guidance for the folder, printer, and queue controls. Turn it off to hide that guidance.
 
 ## 7. Language, Help, and Exit
 
@@ -52,4 +54,4 @@ Select **Exit** to close the application. If printing is still running, SBPS ask
 
 ## Defaults and Persistence
 
-The current build starts with two-sided and separator options enabled. **Show settings first** and **Skip failed files** start disabled. Those print choices are not persisted. The last successfully loaded folder is stored in `%LocalAppData%\FilePrintStudio\last-folder.txt`. The WebView2 cache remains `%LocalAppData%\FilePrintStudio\WebView2`.
+The current build starts with two-sided printing, separator pages, and **Skip failed files** enabled. **Show settings first** and **Tips** start disabled. Those choices are not persisted. The last successfully loaded folder is stored in `%LocalAppData%\FilePrintStudio\last-folder.txt`. The WebView2 cache remains `%LocalAppData%\FilePrintStudio\WebView2`.

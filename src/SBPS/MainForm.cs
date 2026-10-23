@@ -76,6 +76,15 @@ internal sealed class MainForm : Form
     private readonly CheckBox _showPrinterSettingsCheckBox = new();
     private readonly CheckBox _addSeparatorPageCheckBox = new();
     private readonly CheckBox _skipFailedFileCheckBox = new();
+    private readonly CheckBox _showToolTipsCheckBox = new();
+    private readonly ToolTip _toolTip = new()
+    {
+        AutoPopDelay = 6000,
+        InitialDelay = 500,
+        ReshowDelay = 200,
+        ShowAlways = true,
+        Active = false,
+    };
     private readonly PremiumButton _refreshPrintersButton = new();
     private readonly PremiumButton _printButton = new();
     private readonly PremiumButton _cancelButton = new();
@@ -218,6 +227,13 @@ internal sealed class MainForm : Form
         _exitButton.Height = 36;
         _exitButton.Margin = Padding.Empty;
         _exitButton.Font = new Font("Segoe UI Semibold", 9.5F);
+        _showToolTipsCheckBox.AutoSize = true;
+        _showToolTipsCheckBox.Checked = false;
+        _showToolTipsCheckBox.FlatStyle = FlatStyle.Flat;
+        _showToolTipsCheckBox.Font = new Font("Segoe UI Semibold", 9F);
+        _showToolTipsCheckBox.ForeColor = Color.White;
+        _showToolTipsCheckBox.BackColor = Color.Transparent;
+        _showToolTipsCheckBox.Margin = new Padding(0, 8, 12, 0);
         var exitGap = new Panel
         {
             BackColor = Color.Transparent,
@@ -226,6 +242,7 @@ internal sealed class MainForm : Form
         };
         actionLayout.Controls.Add(_exitButton);
         actionLayout.Controls.Add(exitGap);
+        actionLayout.Controls.Add(_showToolTipsCheckBox);
         actionLayout.Controls.Add(_languageComboBox);
         actionLayout.Controls.Add(_helpButton);
         headerActions.Controls.Add(_headerIdentityLabel, 0, 0);
@@ -421,7 +438,7 @@ internal sealed class MainForm : Form
         ConfigureCheckBox(_duplexCheckBox, string.Empty, isChecked: true);
         ConfigureCheckBox(_showPrinterSettingsCheckBox, string.Empty, isChecked: false);
         ConfigureCheckBox(_addSeparatorPageCheckBox, string.Empty, isChecked: true);
-        ConfigureCheckBox(_skipFailedFileCheckBox, string.Empty, isChecked: false);
+        ConfigureCheckBox(_skipFailedFileCheckBox, string.Empty, isChecked: true);
         ConfigureButton(_refreshPrintersButton, string.Empty, PremiumButtonVariant.Secondary);
         ConfigureButton(_printButton, string.Empty, PremiumButtonVariant.Primary);
         _printButton.MinimumSize = new Size(154, 40);
@@ -567,6 +584,19 @@ internal sealed class MainForm : Form
 
     private string T(string key, params object?[] args) => AppLocalization.Get(_language, key, args);
 
+    private void ApplyToolTips()
+    {
+        _toolTip.SetToolTip(_includeSubfoldersCheckBox, T("TipIncludeSubfolders"));
+        _toolTip.SetToolTip(_selectFolderButton, T("TipSelectFolder"));
+        _toolTip.SetToolTip(_refreshFilesButton, T("TipRefresh"));
+        _toolTip.SetToolTip(_duplexCheckBox, T("TipDuplex"));
+        _toolTip.SetToolTip(_showPrinterSettingsCheckBox, T("TipShowPrinterSettings"));
+        _toolTip.SetToolTip(_addSeparatorPageCheckBox, T("TipAddSeparator"));
+        _toolTip.SetToolTip(_skipFailedFileCheckBox, T("TipSkipFailed"));
+        _toolTip.SetToolTip(_printButton, T("TipPrint"));
+        _toolTip.SetToolTip(_cancelButton, T("TipStop"));
+    }
+
     private void ApplyLanguage()
     {
         _updatingLanguage = true;
@@ -592,6 +622,8 @@ internal sealed class MainForm : Form
             _showPrinterSettingsCheckBox.Text = T("ShowPrinterSettings");
             _addSeparatorPageCheckBox.Text = T("AddSeparatorPage");
             _skipFailedFileCheckBox.Text = T("SkipFailedFile");
+            _showToolTipsCheckBox.Text = T("ShowToolTips");
+            ApplyToolTips();
             _refreshPrintersButton.Text = T("RefreshPrinters");
             _printButton.Text = T("SendToPrinter");
             _cancelButton.Text = T("Stop");
@@ -817,6 +849,7 @@ internal sealed class MainForm : Form
     {
         Shown += async (_, _) => await InitializeAsync();
         _languageComboBox.SelectedIndexChanged += LanguageComboBoxOnSelectedIndexChanged;
+        _showToolTipsCheckBox.CheckedChanged += (_, _) => _toolTip.Active = _showToolTipsCheckBox.Checked;
         _helpButton.Click += (_, _) => ShowHelp();
         _exitButton.Click += (_, _) => Close();
         _folderTextBox.KeyDown += FolderTextBoxOnKeyDown;

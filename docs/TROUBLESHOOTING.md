@@ -24,7 +24,7 @@ Text and HTML files correctly show that pagination is determined at print time.
 
 ## Printing Stops on an Error
 
-With **Skip failed files** off, SBPS stops the remaining queue after a failed item to preserve submission order. Turn the option on when a failed file should be skipped and the queue should continue. Confirm:
+**Skip failed files** starts on, so a failed item is logged and the queue continues. Turn it off when SBPS should stop the remaining queue to preserve submission order. Confirm:
 
 1. The printer is online and not paused.
 2. Paper and consumables are available.

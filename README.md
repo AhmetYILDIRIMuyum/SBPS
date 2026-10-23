@@ -28,7 +28,8 @@ The application is designed for Windows operators who need repeatable multi-file
 - Optional Windows printer settings dialog before submission
 - Optional blank separator pages between files; enabled by default
 - Ordered, cancellable processing with per-file status and diagnostic logging
-- Optional skip of a failed file so the rest of the queue can continue; off by default, so an error still stops the remaining files
+- Skip failed files is on by default, so one error does not stop the rest of the queue. Turn it off to keep the remaining files unsent
+- Optional tips in Turkish and English. The Tips switch starts off, and tips stay hidden until it is turned on
 - Turkish and English UI selected from Windows regional settings and changeable at runtime
 - High-DPI-aware Windows Forms interface and a sectioned in-app help window
 - On-screen Exit button; closing during an active print asks for confirmation
@@ -125,7 +126,7 @@ docs/
 
 SBPS reads installed printers from Windows. Printer capabilities and final duplex behavior are controlled by the selected printer and its driver.
 
-Print choices are not persisted between sessions. The separator option starts enabled, two-sided printing starts enabled, and **Show settings first** and **Skip failed files** start disabled. The last loaded folder is stored in `%LocalAppData%\FilePrintStudio\last-folder.txt`. Diagnostic logs and the WebView2 cache continue to use `%LocalAppData%\FilePrintStudio` to preserve compatibility with earlier installations.
+Print choices are not persisted between sessions. The separator option, two-sided printing, and **Skip failed files** start enabled. **Show settings first** and **Tips** start disabled. The last loaded folder is stored in `%LocalAppData%\FilePrintStudio\last-folder.txt`. Diagnostic logs and the WebView2 cache continue to use `%LocalAppData%\FilePrintStudio` to preserve compatibility with earlier installations.
 
 ## Build and Development
 
@@ -138,7 +139,7 @@ There is currently no automated test project. Changes should be validated with D
 - If WebView2 cannot initialize, install or repair the Microsoft Edge WebView2 Evergreen Runtime.
 - If a printer is missing, verify it in Windows Settings and use **Refresh Printers**.
 - If a PDF page count is unavailable, the file may be encrypted, damaged, unusually encoded, or outside the safe inspection limit. Printing remains a separate operation.
-- If printing fails while **Skip failed files** is off, SBPS stops the remaining queue to preserve order and writes a diagnostic log. When the option is on, that file is skipped and the queue continues.
+- If printing fails while **Skip failed files** is on, that file is skipped and the queue continues. Turn the option off to stop the remaining queue and preserve order. A diagnostic log is written either way.
 
 See [Troubleshooting](docs/TROUBLESHOOTING.md) for more details.
 
