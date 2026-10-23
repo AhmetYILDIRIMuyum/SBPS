@@ -26,6 +26,7 @@ internal sealed class HelpDialog : Form
         var titleFont = new Font("Segoe UI Semibold", 18F);
         var header = new GradientHeaderPanel
         {
+            BackColor = PremiumPalette.Navy,
             Dock = DockStyle.Top,
             Height = titleFont.Height + 28,
             Padding = new Padding(24, 14, 24, 14),
@@ -33,6 +34,7 @@ internal sealed class HelpDialog : Form
         header.Controls.Add(new Label
         {
             AutoSize = false,
+            BackColor = PremiumPalette.Navy,
             Dock = DockStyle.Fill,
             Font = titleFont,
             ForeColor = Color.White,
