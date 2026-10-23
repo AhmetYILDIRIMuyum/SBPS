@@ -12,7 +12,7 @@ SBPS is a single-project .NET 9 Windows Forms application. The main form owns th
 | `FilePageCountService` | Asynchronous page-count lookup and cache |
 | `PdfFileItem` | Bindable row model for selection, path, size, state, and page-count display |
 | `Localization` | Turkish/English strings and culture-based initial language selection |
-| `HelpDialog` | Scrollable, DPI-aware in-app help window |
+| `HelpDialog` | Fixed, DPI-aware in-app help window with six sections and no scrollbar |
 | `PremiumControls` | Custom colors, cards, buttons, header, and progress control |
 
 ## File Discovery and Queue
