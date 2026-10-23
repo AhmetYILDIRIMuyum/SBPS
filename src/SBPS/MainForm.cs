@@ -86,6 +86,8 @@ internal sealed class MainForm : Form
     private readonly BindingList<PdfFileItem> _pdfFiles = [];
 
     private CancellationTokenSource? _printCancellation;
+    private string? _sortProperty;
+    private bool _sortAscending = true;
     private CancellationTokenSource? _pageCountCancellation;
     private bool _webViewReady;
     private bool _updatingLanguage;
@@ -717,7 +719,7 @@ internal sealed class MainForm : Form
             FillWeight = 8,
             MinimumWidth = 48,
             ReadOnly = false,
-            SortMode = DataGridViewColumnSortMode.NotSortable,
+            SortMode = DataGridViewColumnSortMode.Programmatic,
         });
         _filesGrid.Columns.Add(new DataGridViewTextBoxColumn
         {
@@ -786,6 +788,10 @@ internal sealed class MainForm : Form
             ReadOnly = true,
         });
         _filesGrid.CellFormatting += FilesGridOnCellFormatting;
+        foreach (DataGridViewColumn column in _filesGrid.Columns)
+        {
+            column.SortMode = DataGridViewColumnSortMode.Programmatic;
+        }
     }
 
     private void WireEvents()
@@ -798,6 +804,7 @@ internal sealed class MainForm : Form
         _selectFolderButton.Click += (_, _) => SelectFolder();
         _refreshFilesButton.Click += (_, _) => LoadFiles();
         _includeSubfoldersCheckBox.CheckedChanged += (_, _) => LoadFiles();
+        _filesGrid.ColumnHeaderMouseClick += FilesGridOnColumnHeaderMouseClick;
         _filesGrid.CurrentCellDirtyStateChanged += FilesGridOnCurrentCellDirtyStateChanged;
         _filesGrid.CellValueChanged += FilesGridOnCellValueChanged;
         _refreshPrintersButton.Click += (_, _) => LoadPrinters();
@@ -807,6 +814,118 @@ internal sealed class MainForm : Form
         _cancelButton.Click += (_, _) => CancelPrinting();
         FormClosing += OnFormClosing;
     }
+
+    private void FilesGridOnColumnHeaderMouseClick(object? sender, DataGridViewCellMouseEventArgs e)
+    {
+        if (e.ColumnIndex < 0 || _printCancellation is not null)
+        {
+            return;
+        }
+
+        var propertyName = _filesGrid.Columns[e.ColumnIndex].DataPropertyName;
+        if (string.IsNullOrEmpty(propertyName))
+        {
+            return;
+        }
+
+        _sortAscending = _sortProperty == propertyName ? !_sortAscending : true;
+        _sortProperty = propertyName;
+
+        var items = _pdfFiles.ToList();
+        items.Sort(CompareSortedItems);
+        _pdfFiles.RaiseListChangedEvents = false;
+        _pdfFiles.Clear();
+        foreach (var item in items)
+        {
+            _pdfFiles.Add(item);
+        }
+
+        _pdfFiles.RaiseListChangedEvents = true;
+        _pdfFiles.ResetBindings();
+        foreach (DataGridViewColumn column in _filesGrid.Columns)
+        {
+            column.HeaderCell.SortGlyphDirection = column.DataPropertyName == _sortProperty
+                ? _sortAscending
+                    ? SortOrder.Ascending
+                    : SortOrder.Descending
+                : SortOrder.None;
+        }
+    }
+
+    private void ClearColumnSort()
+    {
+        _sortProperty = null;
+        _sortAscending = true;
+        if (_filesGrid.Columns.Count == 0)
+        {
+            return;
+        }
+
+        foreach (DataGridViewColumn column in _filesGrid.Columns)
+        {
+            column.HeaderCell.SortGlyphDirection = SortOrder.None;
+        }
+    }
+
+    private int CompareSortedItems(PdfFileItem left, PdfFileItem right)
+    {
+        var result = _sortProperty switch
+        {
+            nameof(PdfFileItem.Order) => left.Order.CompareTo(right.Order),
+            nameof(PdfFileItem.IsSelected) => left.IsSelected.CompareTo(right.IsSelected),
+            nameof(PdfFileItem.FileName) => StringComparer.CurrentCultureIgnoreCase.Compare(left.FileName, right.FileName),
+            nameof(PdfFileItem.FileType) => StringComparer.CurrentCultureIgnoreCase.Compare(left.FileType, right.FileType),
+            nameof(PdfFileItem.DirectoryName) => StringComparer.CurrentCultureIgnoreCase.Compare(left.DirectoryName, right.DirectoryName),
+            nameof(PdfFileItem.Status) => StringComparer.CurrentCultureIgnoreCase.Compare(left.Status, right.Status),
+            nameof(PdfFileItem.PageCountText) => CompareKnownNumber(left.PageCount, right.PageCount),
+            nameof(PdfFileItem.SizeValue) => left.SizeBytes.CompareTo(right.SizeBytes),
+            nameof(PdfFileItem.SizeUnit) => CompareSizeUnit(left, right),
+            _ => 0,
+        };
+
+        if (_sortProperty is nameof(PdfFileItem.PageCountText))
+        {
+            return result;
+        }
+
+        return _sortAscending ? result : -result;
+    }
+
+    private int CompareKnownNumber(int? left, int? right)
+    {
+        if (left is null && right is null)
+        {
+            return 0;
+        }
+
+        if (left is null)
+        {
+            return 1;
+        }
+
+        if (right is null)
+        {
+            return -1;
+        }
+
+        var result = left.Value.CompareTo(right.Value);
+        return _sortAscending ? result : -result;
+    }
+
+    private static int CompareSizeUnit(PdfFileItem left, PdfFileItem right)
+    {
+        var unitCompare = SizeUnitRank(left.SizeUnit).CompareTo(SizeUnitRank(right.SizeUnit));
+        return unitCompare != 0 ? unitCompare : left.SizeBytes.CompareTo(right.SizeBytes);
+    }
+
+    private static int SizeUnitRank(string unit) => unit switch
+    {
+        "B" => 0,
+        "KB" => 1,
+        "MB" => 2,
+        "GB" => 3,
+        _ => 4,
+    };
 
     private void FilesGridOnCurrentCellDirtyStateChanged(object? sender, EventArgs e)
     {
@@ -977,6 +1096,7 @@ internal sealed class MainForm : Form
             }
 
             UpdateSelectionSummary();
+            ClearColumnSort();
 
             _statusLabel.Text = allPaths.Length == 0
                 ? T("NoFiles")
