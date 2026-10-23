@@ -2,7 +2,7 @@
 
 ## 1. Select a Folder
 
-Type a full path into the folder field and press **Enter**, or select **Choose Folder**. Enable **Subfolders** before refreshing when files below the selected directory should also be discovered.
+Type a full path into the folder field and press **Enter**, select **Choose Folder**, or drop a folder onto the window. Enable **Subfolders** before refreshing when files below the selected directory should also be discovered. The last folder that was loaded successfully opens again next time.
 
 ## 2. Filter File Types
 
@@ -40,7 +40,7 @@ When separators are enabled, SBPS inserts one blank job only between printable f
 
 Select **Send to Printer**. The confirmation dialog shows the printable-file count, printer, two-sided state, copy count, and separator state.
 
-After confirmation, progress and row statuses are updated in order. If a file fails after the built-in retries, the remaining queue is not submitted. Use **Stop** to request cancellation.
+After confirmation, progress and row statuses are updated in order. **Skip failed files** starts off. While it is off, a file that fails after the built-in retries stops the remaining queue. While it is on, that file is marked as an error, written to the diagnostic log, and the queue continues. The two modes cannot be active together. Use **Stop** to request cancellation.
 
 ## 7. Language, Help, and Exit
 
@@ -52,4 +52,4 @@ Select **Exit** to close the application. If printing is still running, SBPS ask
 
 ## Defaults and Persistence
 
-The current build starts with two-sided and separator options enabled and printer-settings display disabled. These UI choices are not persisted when the application closes.
+The current build starts with two-sided and separator options enabled. **Show settings first** and **Skip failed files** start disabled. Those print choices are not persisted. The last successfully loaded folder is stored in `%LocalAppData%\FilePrintStudio\last-folder.txt`. The WebView2 cache remains `%LocalAppData%\FilePrintStudio\WebView2`.

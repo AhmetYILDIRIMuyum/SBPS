@@ -16,7 +16,8 @@ Her kaynak dosya ayrı bir yazdırma işi olarak gönderilir. Kullanıcı isters
 
 ## Temel Özellikler
 
-- Klasör yolunu elle yazma veya Windows klasör seçicisini kullanma
+- Klasör yolunu elle yazma, Windows klasör seçicisini kullanma veya klasörü pencereye bırakma
+- Durum satırında alınan ve elenen dosya sayıları
 - İsteğe bağlı alt klasör tarama
 - Klasörde bulunan uzantılardan dinamik dosya tipi filtreleri
 - Baskı listesinden dosya bazında seçim
@@ -28,6 +29,7 @@ Her kaynak dosya ayrı bir yazdırma işi olarak gönderilir. Kullanıcı isters
 - Yazdırmadan önce isteğe bağlı Windows yazıcı ayarları
 - Varsayılan açık, dosyalar arasında isteğe bağlı boş ayırıcı sayfa
 - Sıralı ve durdurulabilir işlem; dosya durumları ve tanılama kaydı
+- İsteğe bağlı hatalı dosyayı geçme. Kapalıyken hata kalan dosyaları durdurur
 - Windows bölge/dil ayarından otomatik belirlenen ve ekrandan değiştirilebilen Türkçe/İngilizce arayüz
 - Yüksek DPI uyumlu Windows Forms arayüzü ve bölümlü uygulama içi yardım penceresi
 - Ekranda Çıkış düğmesi; yazdırma sürerken kapanış onay ister
@@ -75,7 +77,7 @@ dotnet build .\SBPS.sln -c Release
 
 ## Kullanım
 
-1. Klasör yolunu yazın veya klasör seçin.
+1. Klasör yolunu yazın, klasör seçin veya klasörü pencereye bırakın.
 2. Gerekirse alt klasörleri etkinleştirip listeyi yenileyin.
 3. Dahil edilecek dosya tiplerini seçin. PDF bulunursa başlangıçta seçili gelir.
 4. Dosya satırlarındaki seçim kutularıyla kuyruğu düzenleyin.
@@ -100,7 +102,7 @@ Tek NuGet bağımlılığı `Microsoft.Web.WebView2` paketidir.
 
 Yazıcılar Windows'tan okunur. Nihai çift taraf davranışı ve desteklenen seçenekler yazıcı sürücüsüne bağlıdır.
 
-Mevcut sürüm, ekran tercihlerini oturumlar arasında saklamaz. Ayırıcı sayfa ve çift taraf seçeneği açık; **Önce ayarları göster** seçeneği kapalı başlar. Önceki kurulumlarla geriye dönük uyumluluk için günlükler `%LocalAppData%\FilePrintStudio\Logs` altında tutulmaya devam eder.
+Yazdırma seçenekleri oturumlar arasında saklanmaz. Ayırıcı sayfa ve çift taraf seçeneği açık; **Önce ayarları göster** ve **Hatalı dosyayı geç** kapalı başlar. Son yüklenen klasör `%LocalAppData%\FilePrintStudio\last-folder.txt` dosyasına yazılır. Günlükler ve WebView2 önbelleği önceki kurulumlarla uyum için `%LocalAppData%\FilePrintStudio` altında kalır.
 
 ## Sınırlamalar
 

@@ -75,6 +75,7 @@ internal sealed class MainForm : Form
     private readonly CheckBox _duplexCheckBox = new();
     private readonly CheckBox _showPrinterSettingsCheckBox = new();
     private readonly CheckBox _addSeparatorPageCheckBox = new();
+    private readonly CheckBox _skipFailedFileCheckBox = new();
     private readonly PremiumButton _refreshPrintersButton = new();
     private readonly PremiumButton _printButton = new();
     private readonly PremiumButton _cancelButton = new();
@@ -113,7 +114,12 @@ internal sealed class MainForm : Form
         BuildInterface();
         ApplyLanguage();
         WireEvents();
+        EnableFolderDrop(this);
     }
+
+    private static string AppDataFolder => Path.Combine(
+        Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
+        "FilePrintStudio");
 
     private void BuildInterface()
     {
@@ -238,7 +244,7 @@ internal sealed class MainForm : Form
         };
         content.RowStyles.Add(new RowStyle(SizeType.Absolute, 170));
         content.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
-        content.RowStyles.Add(new RowStyle(SizeType.Absolute, 160));
+        content.RowStyles.Add(new RowStyle(SizeType.Absolute, 198));
         content.RowStyles.Add(new RowStyle(SizeType.Absolute, 62));
 
         var folderCard = new PremiumCardPanel
@@ -385,11 +391,12 @@ internal sealed class MainForm : Form
         {
             Dock = DockStyle.Fill,
             ColumnCount = 1,
-            RowCount = 3,
+            RowCount = 4,
             BackColor = Color.Transparent,
         };
         printerCardLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 28));
         printerCardLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 44));
+        printerCardLayout.RowStyles.Add(new RowStyle(SizeType.Absolute, 32));
         printerCardLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
         ConfigureSectionTitle(_printerSectionLabel, "03");
         printerCardLayout.Controls.Add(_printerSectionLabel, 0, 0);
@@ -414,6 +421,7 @@ internal sealed class MainForm : Form
         ConfigureCheckBox(_duplexCheckBox, string.Empty, isChecked: true);
         ConfigureCheckBox(_showPrinterSettingsCheckBox, string.Empty, isChecked: false);
         ConfigureCheckBox(_addSeparatorPageCheckBox, string.Empty, isChecked: true);
+        ConfigureCheckBox(_skipFailedFileCheckBox, string.Empty, isChecked: false);
         ConfigureButton(_refreshPrintersButton, string.Empty, PremiumButtonVariant.Secondary);
         ConfigureButton(_printButton, string.Empty, PremiumButtonVariant.Primary);
         _printButton.MinimumSize = new Size(154, 40);
@@ -424,28 +432,38 @@ internal sealed class MainForm : Form
         printerLayout.Controls.Add(_printersComboBox, 0, 0);
         printerCardLayout.Controls.Add(printerLayout, 0, 1);
 
+        var printerOptionsLayout = new FlowLayoutPanel
+        {
+            Dock = DockStyle.Fill,
+            FlowDirection = FlowDirection.LeftToRight,
+            WrapContents = false,
+            AutoScroll = false,
+            BackColor = Color.Transparent,
+            Margin = Padding.Empty,
+            Padding = Padding.Empty,
+        };
+        printerOptionsLayout.Controls.Add(_duplexCheckBox);
+        printerOptionsLayout.Controls.Add(_showPrinterSettingsCheckBox);
+        printerOptionsLayout.Controls.Add(_addSeparatorPageCheckBox);
+        printerOptionsLayout.Controls.Add(_skipFailedFileCheckBox);
+        printerCardLayout.Controls.Add(printerOptionsLayout, 0, 2);
+
         var printerActionsLayout = new TableLayoutPanel
         {
             Dock = DockStyle.Fill,
-            ColumnCount = 7,
+            ColumnCount = 4,
             RowCount = 1,
             BackColor = Color.Transparent,
             Margin = Padding.Empty,
         };
-        printerActionsLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-        printerActionsLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-        printerActionsLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
         printerActionsLayout.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100));
         printerActionsLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
         printerActionsLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
         printerActionsLayout.ColumnStyles.Add(new ColumnStyle(SizeType.AutoSize));
-        printerActionsLayout.Controls.Add(_duplexCheckBox, 0, 0);
-        printerActionsLayout.Controls.Add(_showPrinterSettingsCheckBox, 1, 0);
-        printerActionsLayout.Controls.Add(_addSeparatorPageCheckBox, 2, 0);
-        printerActionsLayout.Controls.Add(_refreshPrintersButton, 4, 0);
-        printerActionsLayout.Controls.Add(_printButton, 5, 0);
-        printerActionsLayout.Controls.Add(_cancelButton, 6, 0);
-        printerCardLayout.Controls.Add(printerActionsLayout, 0, 2);
+        printerActionsLayout.Controls.Add(_refreshPrintersButton, 1, 0);
+        printerActionsLayout.Controls.Add(_printButton, 2, 0);
+        printerActionsLayout.Controls.Add(_cancelButton, 3, 0);
+        printerCardLayout.Controls.Add(printerActionsLayout, 0, 3);
         printerCard.Controls.Add(printerCardLayout);
 
         var statusCard = new PremiumCardPanel
@@ -573,6 +591,7 @@ internal sealed class MainForm : Form
             _duplexCheckBox.Text = T("Duplex");
             _showPrinterSettingsCheckBox.Text = T("ShowPrinterSettings");
             _addSeparatorPageCheckBox.Text = T("AddSeparatorPage");
+            _skipFailedFileCheckBox.Text = T("SkipFailedFile");
             _refreshPrintersButton.Text = T("RefreshPrinters");
             _printButton.Text = T("SendToPrinter");
             _cancelButton.Text = T("Stop");
@@ -980,10 +999,7 @@ internal sealed class MainForm : Form
         try
         {
             var runtimeVersion = CoreWebView2Environment.GetAvailableBrowserVersionString();
-            var userDataFolder = Path.Combine(
-                Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData),
-                "FilePrintStudio",
-                "WebView2");
+            var userDataFolder = Path.Combine(AppDataFolder, "WebView2");
             Directory.CreateDirectory(userDataFolder);
 
             var environment = await CoreWebView2Environment.CreateAsync(userDataFolder: userDataFolder);
@@ -996,7 +1012,11 @@ internal sealed class MainForm : Form
 
             _webViewReady = true;
             _webViewRuntimeVersion = runtimeVersion;
-            _statusLabel.Text = T("Ready", runtimeVersion);
+            if (!RestoreLastFolder())
+            {
+                _statusLabel.Text = T("Ready", runtimeVersion);
+            }
+
             UpdatePrintButtonState();
         }
         catch (WebView2RuntimeNotFoundException)
@@ -1013,6 +1033,118 @@ internal sealed class MainForm : Form
         {
             _statusLabel.Text = T("InfrastructureFailed");
             ShowError(T("InfrastructureFailed"), ex);
+        }
+    }
+
+    private void EnableFolderDrop(Control control)
+    {
+        control.AllowDrop = true;
+        control.DragEnter -= FolderOnDragEnter;
+        control.DragOver -= FolderOnDragEnter;
+        control.DragDrop -= FolderOnDragDrop;
+        control.DragEnter += FolderOnDragEnter;
+        control.DragOver += FolderOnDragEnter;
+        control.DragDrop += FolderOnDragDrop;
+        control.ControlAdded -= FolderDropControlAdded;
+        control.ControlAdded += FolderDropControlAdded;
+
+        foreach (Control child in control.Controls)
+        {
+            EnableFolderDrop(child);
+        }
+    }
+
+    private void FolderDropControlAdded(object? sender, ControlEventArgs e)
+    {
+        if (e.Control is not null)
+        {
+            EnableFolderDrop(e.Control);
+        }
+    }
+
+    private void FolderOnDragEnter(object? sender, DragEventArgs e)
+    {
+        e.Effect = _printCancellation is null && FirstDroppedFolder(e) is not null
+            ? DragDropEffects.Copy
+            : DragDropEffects.None;
+    }
+
+    private void FolderOnDragDrop(object? sender, DragEventArgs e)
+    {
+        if (_printCancellation is not null)
+        {
+            return;
+        }
+
+        var folder = FirstDroppedFolder(e);
+        if (folder is null)
+        {
+            return;
+        }
+
+        _folderTextBox.Text = folder;
+        LoadFiles();
+    }
+
+    private static string? FirstDroppedFolder(DragEventArgs e)
+    {
+        if (e.Data?.GetData(DataFormats.FileDrop) is not string[] paths)
+        {
+            return null;
+        }
+
+        return paths.FirstOrDefault(Directory.Exists);
+    }
+
+    private bool RestoreLastFolder()
+    {
+        var folder = ReadLastFolder();
+        if (folder is null || !Directory.Exists(folder))
+        {
+            return false;
+        }
+
+        _folderTextBox.Text = folder;
+        LoadFiles();
+        return true;
+    }
+
+    private static string LastFolderFilePath => Path.Combine(AppDataFolder, "last-folder.txt");
+
+    private static string? ReadLastFolder()
+    {
+        try
+        {
+            if (!File.Exists(LastFolderFilePath))
+            {
+                return null;
+            }
+
+            var folder = File.ReadAllText(LastFolderFilePath).Trim();
+            return string.IsNullOrWhiteSpace(folder) ? null : folder;
+        }
+        catch (IOException)
+        {
+            return null;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return null;
+        }
+    }
+
+    private static void SaveLastFolder(string folder)
+    {
+        try
+        {
+            Directory.CreateDirectory(AppDataFolder);
+            File.WriteAllText(LastFolderFilePath, folder);
+        }
+        catch (IOException)
+        {
+        }
+        catch (UnauthorizedAccessException)
+        {
         }
     }
 
@@ -1065,12 +1197,15 @@ internal sealed class MainForm : Form
                 ? SearchOption.AllDirectories
                 : SearchOption.TopDirectoryOnly;
 
-            var allPaths = Directory
+            var discoveredPaths = Directory
                 .EnumerateFiles(folder, "*.*", searchOption)
+                .ToArray();
+            var allPaths = discoveredPaths
                 .Where(path => SupportedExtensions.Contains(Path.GetExtension(path)))
                 .OrderBy(path => Path.GetFileName(path), StringComparer.CurrentCultureIgnoreCase)
                 .ThenBy(path => path, StringComparer.CurrentCultureIgnoreCase)
                 .ToArray();
+            var excludedCount = discoveredPaths.Length - allPaths.Length;
 
             var sourceKey = $"{Path.GetFullPath(folder)}|{searchOption}";
             if (rebuildFileTypes)
@@ -1098,9 +1233,8 @@ internal sealed class MainForm : Form
             UpdateSelectionSummary();
             ClearColumnSort();
 
-            _statusLabel.Text = allPaths.Length == 0
-                ? T("NoFiles")
-                : T("FilesFound", allPaths.Length);
+            _statusLabel.Text = T("FilesScanned", allPaths.Length, excludedCount);
+            SaveLastFolder(Path.GetFullPath(folder));
 
             StartPageCountLoading();
         }
@@ -1559,7 +1693,8 @@ internal sealed class MainForm : Form
                 printerName,
                 printOptions.Duplex ? T("On") : T("Off"),
                 printOptions.Copies,
-                addSeparatorPages ? T("On") : T("Off")),
+                addSeparatorPages ? T("On") : T("Off"),
+                _skipFailedFileCheckBox.Checked ? T("On") : T("Off")),
             T("ConfirmPrintTitle"),
             MessageBoxButtons.YesNo,
             MessageBoxIcon.Question,
@@ -1593,6 +1728,7 @@ internal sealed class MainForm : Form
 
         PdfFileItem? activeItem = null;
         var activePhase = string.Empty;
+        var skippedFiles = 0;
 
         try
         {
@@ -1606,8 +1742,24 @@ internal sealed class MainForm : Form
                 _filesGrid.FirstDisplayedScrollingRowIndex = Math.Max(0, _pdfFiles.IndexOf(item));
                 _statusLabel.Text = T("PrintingFile", index + 1, printQueue.Count, item.FileName);
 
-                await LoadPrintableFileAsync(item.FullPath, cancellationToken);
-                await PrintCurrentDocumentAsync(printOptions, activePhase, cancellationToken);
+                try
+                {
+                    await LoadPrintableFileAsync(item.FullPath, cancellationToken);
+                    await PrintCurrentDocumentAsync(printOptions, activePhase, cancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    throw;
+                }
+                catch (Exception ex) when (_skipFailedFileCheckBox.Checked)
+                {
+                    SetItemState(item, PdfPrintState.Error);
+                    TryAppendDiagnosticLog(T("SkippedFileLog", item.FileName), ex);
+                    skippedFiles++;
+                    completedJobs++;
+                    _progressBar.Value = Math.Min(_progressBar.Maximum, completedJobs);
+                    continue;
+                }
 
                 SetItemState(item, PdfPrintState.Sent);
                 completedJobs++;
@@ -1623,22 +1775,49 @@ internal sealed class MainForm : Form
                 activePhase = T("ActiveSeparator", item.FileName);
                 _statusLabel.Text = T("SendingSeparator", item.FileName);
 
-                await NavigateToHtmlAsync(BlankPageHtml, cancellationToken);
-                await PrintCurrentDocumentAsync(printOptions, activePhase, cancellationToken);
+                try
+                {
+                    await NavigateToHtmlAsync(BlankPageHtml, cancellationToken);
+                    await PrintCurrentDocumentAsync(printOptions, activePhase, cancellationToken);
+                }
+                catch (OperationCanceledException)
+                {
+                    throw;
+                }
+                catch (Exception ex) when (_skipFailedFileCheckBox.Checked)
+                {
+                    SetItemState(item, PdfPrintState.Sent);
+                    TryAppendDiagnosticLog(T("SkippedSeparatorLog", item.FileName), ex);
+                    continue;
+                }
 
                 completedJobs++;
                 _progressBar.Value = completedJobs;
             }
 
-            _statusLabel.Text = T("CompletedStatus", printQueue.Count, separatorCount);
-            MessageBox.Show(
-                this,
-                T(addSeparatorPages && separatorCount > 0
-                    ? "CompletedMessage"
-                    : "CompletedMessageNoSeparator"),
-                T("CompletedTitle"),
-                MessageBoxButtons.OK,
-                MessageBoxIcon.Information);
+            var sentCount = printQueue.Count - skippedFiles;
+            if (skippedFiles > 0)
+            {
+                _statusLabel.Text = T("CompletedWithSkipsStatus", sentCount, skippedFiles);
+                MessageBox.Show(
+                    this,
+                    T("CompletedWithSkipsMessage", sentCount, skippedFiles),
+                    T("CompletedTitle"),
+                    MessageBoxButtons.OK,
+                    sentCount == 0 ? MessageBoxIcon.Warning : MessageBoxIcon.Information);
+            }
+            else
+            {
+                _statusLabel.Text = T("CompletedStatus", printQueue.Count, separatorCount);
+                MessageBox.Show(
+                    this,
+                    T(addSeparatorPages && separatorCount > 0
+                        ? "CompletedMessage"
+                        : "CompletedMessageNoSeparator"),
+                    T("CompletedTitle"),
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Information);
+            }
         }
         catch (OperationCanceledException)
         {
@@ -1930,6 +2109,7 @@ internal sealed class MainForm : Form
         _duplexCheckBox.Enabled = !isPrinting;
         _showPrinterSettingsCheckBox.Enabled = !isPrinting;
         _addSeparatorPageCheckBox.Enabled = !isPrinting;
+        _skipFailedFileCheckBox.Enabled = !isPrinting;
         _refreshPrintersButton.Enabled = !isPrinting;
         _printButton.Enabled = !isPrinting && CanPrint();
         _cancelButton.Enabled = isPrinting;

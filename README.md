@@ -16,7 +16,8 @@ The application is designed for Windows operators who need repeatable multi-file
 
 ## Key Features
 
-- Manual folder-path entry or Windows folder selection, with optional subfolder scanning
+- Manual folder-path entry, Windows folder selection, or dropping a folder onto the window, with optional subfolder scanning
+- Status line shows how many supported files were listed and how many unsupported files were excluded
 - Dynamic file-type filters generated from the selected folder
 - Per-file selection in the print queue
 - Real-time total, selected, and printable file counts
@@ -27,6 +28,7 @@ The application is designed for Windows operators who need repeatable multi-file
 - Optional Windows printer settings dialog before submission
 - Optional blank separator pages between files; enabled by default
 - Ordered, cancellable processing with per-file status and diagnostic logging
+- Optional skip of a failed file so the rest of the queue can continue; off by default, so an error still stops the remaining files
 - Turkish and English UI selected from Windows regional settings and changeable at runtime
 - High-DPI-aware Windows Forms interface and a sectioned in-app help window
 - On-screen Exit button; closing during an active print asks for confirmation
@@ -76,7 +78,7 @@ See [Installation](docs/INSTALLATION.md) for development and runtime details.
 
 ## How to Use
 
-1. Enter a folder path or choose a folder.
+1. Enter a folder path, choose a folder, or drop a folder onto the window.
 2. Optionally include subfolders, then refresh the list.
 3. Select the file types to include. PDF is selected initially when it exists.
 4. Use the per-file checkboxes to refine the queue.
@@ -123,7 +125,7 @@ docs/
 
 SBPS reads installed printers from Windows. Printer capabilities and final duplex behavior are controlled by the selected printer and its driver.
 
-The current build does not persist UI choices between sessions. The separator option starts enabled, two-sided printing starts enabled, and **Show settings first** starts disabled. Diagnostic logs continue to use `%LocalAppData%\FilePrintStudio\Logs` to preserve compatibility with earlier installations.
+Print choices are not persisted between sessions. The separator option starts enabled, two-sided printing starts enabled, and **Show settings first** and **Skip failed files** start disabled. The last loaded folder is stored in `%LocalAppData%\FilePrintStudio\last-folder.txt`. Diagnostic logs and the WebView2 cache continue to use `%LocalAppData%\FilePrintStudio` to preserve compatibility with earlier installations.
 
 ## Build and Development
 
@@ -136,7 +138,7 @@ There is currently no automated test project. Changes should be validated with D
 - If WebView2 cannot initialize, install or repair the Microsoft Edge WebView2 Evergreen Runtime.
 - If a printer is missing, verify it in Windows Settings and use **Refresh Printers**.
 - If a PDF page count is unavailable, the file may be encrypted, damaged, unusually encoded, or outside the safe inspection limit. Printing remains a separate operation.
-- If printing fails, SBPS stops the remaining queue to preserve order and writes a diagnostic log.
+- If printing fails while **Skip failed files** is off, SBPS stops the remaining queue to preserve order and writes a diagnostic log. When the option is on, that file is skipped and the queue continues.
 
 See [Troubleshooting](docs/TROUBLESHOOTING.md) for more details.
 
