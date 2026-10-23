@@ -53,9 +53,7 @@ internal sealed class MainForm : Form
     private readonly TextBox _folderTextBox = new();
     private readonly Label _appTitleLabel = new();
     private readonly Label _appSubtitleLabel = new();
-    private readonly Label _productDateLabel = new();
-    private readonly Label _authorLabel = new();
-    private readonly Label _emailLabel = new();
+    private readonly Label _headerIdentityLabel = new();
     private readonly ComboBox _languageComboBox = new();
     private readonly Label _folderSectionLabel = new();
     private readonly Label _folderHelpLabel = new();
@@ -128,7 +126,7 @@ internal sealed class MainForm : Form
             Margin = Padding.Empty,
             Padding = Padding.Empty,
         };
-        shell.RowStyles.Add(new RowStyle(SizeType.Absolute, 132));
+        shell.RowStyles.Add(new RowStyle(SizeType.Absolute, 100));
         shell.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
         var header = new GradientHeaderPanel
@@ -167,51 +165,65 @@ internal sealed class MainForm : Form
         brandLayout.Controls.Add(_appTitleLabel, 0, 0);
         brandLayout.Controls.Add(_appSubtitleLabel, 0, 1);
 
-        var productInfo = new TableLayoutPanel
-        {
-            ColumnCount = 1,
-            RowCount = 4,
-            AutoSize = true,
-            Anchor = AnchorStyles.Right,
-            BackColor = PremiumPalette.NavySoft,
-            Padding = new Padding(12, 6, 12, 6),
-        };
-        ConfigureHeaderInfoLabel(_productDateLabel, Color.FromArgb(195, 255, 247), isEmphasized: true);
-        ConfigureHeaderInfoLabel(_authorLabel, Color.White);
-        ConfigureHeaderInfoLabel(_emailLabel, Color.FromArgb(195, 215, 244));
-        productInfo.Controls.Add(_productDateLabel, 0, 0);
-        productInfo.Controls.Add(_authorLabel, 0, 1);
-        productInfo.Controls.Add(_emailLabel, 0, 2);
-
-        var identityLayout = new FlowLayoutPanel
+        var headerActions = new TableLayoutPanel
         {
             AutoSize = true,
             Anchor = AnchorStyles.Right,
-            FlowDirection = FlowDirection.RightToLeft,
-            WrapContents = false,
             BackColor = Color.Transparent,
-            Margin = new Padding(0, 2, 0, 0),
+            ColumnCount = 1,
+            Margin = Padding.Empty,
+            RowCount = 2,
+        };
+        headerActions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        headerActions.RowStyles.Add(new RowStyle(SizeType.AutoSize));
+        _headerIdentityLabel.AutoSize = true;
+        _headerIdentityLabel.Anchor = AnchorStyles.Right;
+        _headerIdentityLabel.BackColor = Color.Transparent;
+        _headerIdentityLabel.Font = new Font("Segoe UI", 9F);
+        _headerIdentityLabel.ForeColor = Color.FromArgb(214, 226, 244);
+        _headerIdentityLabel.Margin = new Padding(0, 2, 0, 8);
+        _headerIdentityLabel.TextAlign = ContentAlignment.MiddleRight;
+
+        var actionLayout = new FlowLayoutPanel
+        {
+            AutoSize = true,
+            Anchor = AnchorStyles.Right,
+            BackColor = Color.Transparent,
+            FlowDirection = FlowDirection.RightToLeft,
+            Margin = Padding.Empty,
+            WrapContents = false,
         };
         _languageComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         _languageComboBox.FlatStyle = FlatStyle.Flat;
         _languageComboBox.Font = new Font("Segoe UI Semibold", 8F);
+        _languageComboBox.Margin = new Padding(0, 2, 0, 0);
         _languageComboBox.Width = 92;
         _languageComboBox.Items.AddRange(["Türkçe", "English"]);
         _languageComboBox.SelectedIndex = _language == AppLanguage.Turkish ? 0 : 1;
         ConfigureButton(_helpButton, string.Empty, PremiumButtonVariant.Secondary);
         _helpButton.MinimumSize = new Size(76, 28);
         _helpButton.Height = 28;
+        _helpButton.Margin = new Padding(0, 0, 8, 0);
         _helpButton.Font = new Font("Segoe UI Semibold", 8F);
         ConfigureButton(_exitButton, string.Empty, PremiumButtonVariant.Danger);
         _exitButton.MinimumSize = new Size(76, 28);
         _exitButton.Height = 28;
+        _exitButton.Margin = Padding.Empty;
         _exitButton.Font = new Font("Segoe UI Semibold", 8F);
-        identityLayout.Controls.Add(_exitButton);
-        identityLayout.Controls.Add(_languageComboBox);
-        identityLayout.Controls.Add(_helpButton);
-        productInfo.Controls.Add(identityLayout, 0, 3);
+        var exitGap = new Panel
+        {
+            BackColor = Color.Transparent,
+            Margin = Padding.Empty,
+            Size = new Size(18, 28),
+        };
+        actionLayout.Controls.Add(_exitButton);
+        actionLayout.Controls.Add(exitGap);
+        actionLayout.Controls.Add(_languageComboBox);
+        actionLayout.Controls.Add(_helpButton);
+        headerActions.Controls.Add(_headerIdentityLabel, 0, 0);
+        headerActions.Controls.Add(actionLayout, 0, 1);
         headerLayout.Controls.Add(brandLayout, 0, 0);
-        headerLayout.Controls.Add(productInfo, 1, 0);
+        headerLayout.Controls.Add(headerActions, 1, 0);
         header.Controls.Add(headerLayout);
 
         var content = new TableLayoutPanel
@@ -498,19 +510,6 @@ internal sealed class MainForm : Form
         label.TextAlign = ContentAlignment.MiddleLeft;
     }
 
-    private static void ConfigureHeaderInfoLabel(
-        Label label,
-        Color color,
-        bool isEmphasized = false)
-    {
-        label.AutoSize = true;
-        label.Anchor = AnchorStyles.Right;
-        label.Font = new Font("Segoe UI Semibold", isEmphasized ? 8.25F : 8F);
-        label.ForeColor = color;
-        label.TextAlign = ContentAlignment.MiddleRight;
-        label.Margin = new Padding(0, 0, 0, 2);
-    }
-
     private static void ConfigureButton(
         PremiumButton button,
         string text,
@@ -556,11 +555,9 @@ internal sealed class MainForm : Form
             Text = T("AppTitle");
             _appTitleLabel.Text = T("AppHeading");
             _appSubtitleLabel.Text = T("AppSubtitle");
-            _productDateLabel.Text = T(
-                "ProductLine",
+            _headerIdentityLabel.Text = T(
+                "HeaderIdentity",
                 DateTime.Now.ToString("d", System.Globalization.CultureInfo.CurrentCulture));
-            _authorLabel.Text = T("AuthorLine");
-            _emailLabel.Text = T("EmailLine");
 
             _folderSectionLabel.Text = $"01   {T("FolderSection")}";
             _queueSectionLabel.Text = $"02   {T("QueueSection")}";
