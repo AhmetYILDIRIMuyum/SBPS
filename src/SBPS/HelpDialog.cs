@@ -23,40 +23,35 @@ internal sealed class HelpDialog : Form
         StartPosition = FormStartPosition.CenterParent;
         Text = title;
 
+        var titleFont = new Font("Segoe UI Semibold", 18F);
         var header = new GradientHeaderPanel
         {
             Dock = DockStyle.Top,
-            Height = 72,
-            Padding = new Padding(22, 12, 22, 10),
+            Height = titleFont.Height + 28,
+            Padding = new Padding(24, 14, 24, 14),
         };
-        var headerLayout = new TableLayoutPanel
-        {
-            Dock = DockStyle.Fill,
-            BackColor = Color.Transparent,
-            ColumnCount = 1,
-            RowCount = 2,
-        };
-        headerLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 58F));
-        headerLayout.RowStyles.Add(new RowStyle(SizeType.Percent, 42F));
-        headerLayout.Controls.Add(new Label
+        header.Controls.Add(new Label
         {
             AutoSize = false,
             Dock = DockStyle.Fill,
+            Font = titleFont,
             ForeColor = Color.White,
-            Font = new Font("Segoe UI Semibold", 16F),
             Text = title,
-            TextAlign = ContentAlignment.BottomLeft,
-        }, 0, 0);
-        headerLayout.Controls.Add(new Label
+            TextAlign = ContentAlignment.MiddleLeft,
+        });
+        var introFont = new Font("Segoe UI", 9.5F);
+        var introLabel = new Label
         {
             AutoSize = false,
-            Dock = DockStyle.Fill,
-            ForeColor = Color.FromArgb(205, 224, 250),
-            Font = new Font("Segoe UI", 9F),
+            BackColor = PremiumPalette.Canvas,
+            Dock = DockStyle.Top,
+            Font = introFont,
+            ForeColor = PremiumPalette.Text,
+            Height = introFont.Height + 18,
+            Padding = new Padding(24, 10, 24, 4),
             Text = intro,
-            TextAlign = ContentAlignment.TopLeft,
-        }, 0, 1);
-        header.Controls.Add(headerLayout);
+            TextAlign = ContentAlignment.MiddleLeft,
+        };
 
         var grid = new TableLayoutPanel
         {
@@ -64,7 +59,7 @@ internal sealed class HelpDialog : Form
             BackColor = PremiumPalette.Canvas,
             ColumnCount = 2,
             Dock = DockStyle.Fill,
-            Padding = new Padding(16, 12, 16, 4),
+            Padding = new Padding(16, 4, 16, 4),
             RowCount = 3,
         };
         grid.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
@@ -126,6 +121,7 @@ internal sealed class HelpDialog : Form
 
         Controls.Add(grid);
         Controls.Add(footer);
+        Controls.Add(introLabel);
         Controls.Add(header);
         AcceptButton = closeButton;
         CancelButton = closeButton;
