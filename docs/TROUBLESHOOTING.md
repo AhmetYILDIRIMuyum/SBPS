@@ -45,7 +45,7 @@ Each document and separator is submitted as a separate print job. Printer driver
 
 ## The Window Appears Too Small or Crowded
 
-SBPS opens at 1027 × 768 logical pixels and uses Windows DPI scaling. Check Windows display scaling and resolution. The form has a minimum size of 1000 × 720 and can be enlarged.
+SBPS opens at 1368 × 882 logical pixels and uses Windows DPI scaling. Check Windows display scaling and resolution. The form has a minimum size of 1000 × 720 and can be enlarged.
 
 ## Collecting a Useful Error Report
 

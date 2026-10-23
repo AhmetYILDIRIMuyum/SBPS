@@ -81,6 +81,7 @@ internal sealed class MainForm : Form
     private readonly PremiumButton _printButton = new();
     private readonly PremiumButton _cancelButton = new();
     private readonly PremiumButton _helpButton = new();
+    private readonly PremiumButton _exitButton = new();
     private readonly PremiumProgressBar _progressBar = new();
     private readonly Label _statusLabel = new();
     private readonly WebView2 _webView = new();
@@ -104,7 +105,7 @@ internal sealed class MainForm : Form
         Text = "Smart Batch Printing Studio";
         StartPosition = FormStartPosition.CenterScreen;
         MinimumSize = new Size(1000, 720);
-        Size = new Size(1027, 768);
+        Size = new Size(1368, 882);
         Font = new Font("Segoe UI", 9.5F);
         BackColor = PremiumPalette.Canvas;
         ForeColor = PremiumPalette.Text;
@@ -201,6 +202,11 @@ internal sealed class MainForm : Form
         _helpButton.MinimumSize = new Size(76, 28);
         _helpButton.Height = 28;
         _helpButton.Font = new Font("Segoe UI Semibold", 8F);
+        ConfigureButton(_exitButton, string.Empty, PremiumButtonVariant.Danger);
+        _exitButton.MinimumSize = new Size(76, 28);
+        _exitButton.Height = 28;
+        _exitButton.Font = new Font("Segoe UI Semibold", 8F);
+        identityLayout.Controls.Add(_exitButton);
         identityLayout.Controls.Add(_languageComboBox);
         identityLayout.Controls.Add(_helpButton);
         productInfo.Controls.Add(identityLayout, 0, 3);
@@ -572,6 +578,7 @@ internal sealed class MainForm : Form
             _printButton.Text = T("SendToPrinter");
             _cancelButton.Text = T("Stop");
             _helpButton.Text = T("Help");
+            _exitButton.Text = T("Exit");
             _secureLabel.Text = T("Secure");
             UpdateSelectionSummary();
             UpdateFileTypeTexts();
@@ -774,6 +781,7 @@ internal sealed class MainForm : Form
         Shown += async (_, _) => await InitializeAsync();
         _languageComboBox.SelectedIndexChanged += LanguageComboBoxOnSelectedIndexChanged;
         _helpButton.Click += (_, _) => ShowHelp();
+        _exitButton.Click += (_, _) => Close();
         _folderTextBox.KeyDown += FolderTextBoxOnKeyDown;
         _selectFolderButton.Click += (_, _) => SelectFolder();
         _refreshFilesButton.Click += (_, _) => LoadFiles();
@@ -1194,8 +1202,17 @@ internal sealed class MainForm : Form
     {
         using var dialog = new HelpDialog(
             T("HelpTitle"),
-            T("HelpMessage"),
-            T("HelpClose"));
+            T("HelpIntro"),
+            T("HelpClose"),
+            T("HelpFooter"),
+            [
+                (T("HelpFolderTitle"), T("HelpFolderBody")),
+                (T("HelpPageTitle"), T("HelpPageBody")),
+                (T("HelpStatsTitle"), T("HelpStatsBody")),
+                (T("HelpSeparatorTitle"), T("HelpSeparatorBody")),
+                (T("HelpPrintTitle"), T("HelpPrintBody")),
+                (T("HelpFormatsTitle"), T("HelpFormatsBody")),
+            ]);
         dialog.ShowDialog(this);
     }
 
@@ -1812,6 +1829,18 @@ internal sealed class MainForm : Form
             T("ErrorTitle"),
             MessageBoxButtons.OK,
             MessageBoxIcon.Error);
+    }
+
+    private void InitializeComponent()
+    {
+        SuspendLayout();
+        // 
+        // MainForm
+        // 
+        Size = new Size(1368, 882);
+        Name = "MainForm";
+        ResumeLayout(false);
+
     }
 
     private static string? TryAppendDiagnosticLog(string context, Exception? exception)

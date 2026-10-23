@@ -28,7 +28,8 @@ The application is designed for Windows operators who need repeatable multi-file
 - Optional blank separator pages between files; enabled by default
 - Ordered, cancellable processing with per-file status and diagnostic logging
 - Turkish and English UI selected from Windows regional settings and changeable at runtime
-- High-DPI-aware Windows Forms interface and a dedicated in-app help window
+- High-DPI-aware Windows Forms interface and a sectioned in-app help window
+- On-screen Exit button; closing during an active print asks for confirmation
 
 ## Supported File Formats
 
@@ -82,6 +83,7 @@ See [Installation](docs/INSTALLATION.md) for development and runtime details.
 5. Review page-count and queue statistics.
 6. Choose a printer and confirm two-sided, separator-page, and advanced-settings options.
 7. Select **Send to Printer** and approve the confirmation dialog.
+8. Select **Help** for the sectioned guide, or **Exit** to close the application.
 
 No separator is added before the first file or after the last file. A queue of *N* files creates at most *N − 1* separator pages.
 

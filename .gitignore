@@ -1,0 +1,13 @@
+.vs/
+**/bin/
+**/obj/
+publish/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+TestResults/
+*.log
+23102026_14_04_gelistirme.md
+CODEX_DEVAM_NOTU.md
+

@@ -33,3 +33,20 @@ Public visibility is not an open-source license. Preserve the repository's propr
 [ahmetyildirimuyum@gmail.com](mailto:ahmetyildirimuyum@gmail.com)
 
 Do not create a release, version tag, or passing-build badge unless the corresponding artifact or workflow has actually been created and verified.
+
+## Observed Remote State — 2026-10-23
+
+The public repository already exists and must not be overwritten:
+
+<https://github.com/AhmetYILDIRIMuyum/SBPS>
+
+- Visibility: public
+- Default branch: `main`
+- Description is set; topics are empty; homepage is empty
+- The published tree has source and docs, and does not include `bin/`, `obj/`, or `.vs/`
+- The published tree has no `.gitignore`
+- `src/SBPS/SBPS.csproj.user` is published. The local copy contains only designer subtype entries, not credentials
+- `23102026_14_04_gelistirme.md` is published. Local `.gitignore` now excludes that working note
+- Later local changes — 1368 × 882 startup size, the Exit button, and the sectioned help window — are not in that published commit
+
+Push, force-update, or topic changes need a separate approval. `gh` is not installed on this machine, and this folder is not a Git repository.

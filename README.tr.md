@@ -29,7 +29,8 @@ Her kaynak dosya ayrı bir yazdırma işi olarak gönderilir. Kullanıcı isters
 - Varsayılan açık, dosyalar arasında isteğe bağlı boş ayırıcı sayfa
 - Sıralı ve durdurulabilir işlem; dosya durumları ve tanılama kaydı
 - Windows bölge/dil ayarından otomatik belirlenen ve ekrandan değiştirilebilen Türkçe/İngilizce arayüz
-- Yüksek DPI uyumlu Windows Forms arayüzü ve uygulama içi yardım penceresi
+- Yüksek DPI uyumlu Windows Forms arayüzü ve bölümlü uygulama içi yardım penceresi
+- Ekranda Çıkış düğmesi; yazdırma sürerken kapanış onay ister
 
 ## Desteklenen Dosya Türleri
 
@@ -81,6 +82,7 @@ dotnet build .\SBPS.sln -c Release
 5. Sayfa ve kuyruk istatistiklerini kontrol edin.
 6. Yazıcıyı; çift taraf, ayırıcı sayfa ve gelişmiş ayar seçeneklerini belirleyin.
 7. **Yazıcıya Gönder** düğmesine basın ve onay penceresini kabul edin.
+8. Bölümlü rehber için **Yardım**, uygulamayı kapatmak için **Çıkış** düğmesini kullanın.
 
 İlk dosyadan önce ve son dosyadan sonra ayırıcı eklenmez. *N* dosya için en fazla *N − 1* ayırıcı sayfa oluşturulur.
 

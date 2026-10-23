@@ -171,7 +171,7 @@ internal sealed class PremiumButton : Button
     }
 }
 
-internal sealed class PremiumCardPanel : Panel
+internal class PremiumCardPanel : Panel
 {
     [Browsable(false)]
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]

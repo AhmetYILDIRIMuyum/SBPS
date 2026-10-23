@@ -42,11 +42,13 @@ Select **Send to Printer**. The confirmation dialog shows the printable-file cou
 
 After confirmation, progress and row statuses are updated in order. If a file fails after the built-in retries, the remaining queue is not submitted. Use **Stop** to request cancellation.
 
-## 7. Language and Help
+## 7. Language, Help, and Exit
 
 The initial language follows Windows culture settings. Use the language selector to switch between Turkish and English at runtime.
 
-Select **Help** for the built-in workflow guide and supported-format list.
+Select **Help** to open the sectioned guide: folder selection, page count, print statistics, separator pages, sending to the printer, and supported formats. **Close** or Esc dismisses it.
+
+Select **Exit** to close the application. If printing is still running, SBPS asks for confirmation before stopping the remaining jobs.
 
 ## Defaults and Persistence
 
