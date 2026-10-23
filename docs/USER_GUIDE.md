@@ -8,7 +8,7 @@ Type a full path into the folder field and press **Enter**, or select **Choose F
 
 SBPS creates filter choices from supported extensions actually present in the folder. PDF is initially selected when found; otherwise the available types are selected so the list is not empty.
 
-Changing a type filter rebuilds the visible list and restarts background page-count work.
+Clearing a file type keeps those rows on screen and turns off their selection. Checking the type selects them again. The list itself is not rebuilt.
 
 ## 3. Refine the Queue
 

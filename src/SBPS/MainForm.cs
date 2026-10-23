@@ -126,7 +126,7 @@ internal sealed class MainForm : Form
             Margin = Padding.Empty,
             Padding = Padding.Empty,
         };
-        shell.RowStyles.Add(new RowStyle(SizeType.Absolute, 100));
+        shell.RowStyles.Add(new RowStyle(SizeType.Absolute, 124));
         shell.RowStyles.Add(new RowStyle(SizeType.Percent, 100));
 
         var header = new GradientHeaderPanel
@@ -195,26 +195,26 @@ internal sealed class MainForm : Form
         };
         _languageComboBox.DropDownStyle = ComboBoxStyle.DropDownList;
         _languageComboBox.FlatStyle = FlatStyle.Flat;
-        _languageComboBox.Font = new Font("Segoe UI Semibold", 8F);
-        _languageComboBox.Margin = new Padding(0, 2, 0, 0);
-        _languageComboBox.Width = 92;
+        _languageComboBox.Font = new Font("Segoe UI Semibold", 9.5F);
+        _languageComboBox.Margin = new Padding(0, 4, 0, 0);
+        _languageComboBox.Width = 118;
         _languageComboBox.Items.AddRange(["Türkçe", "English"]);
         _languageComboBox.SelectedIndex = _language == AppLanguage.Turkish ? 0 : 1;
         ConfigureButton(_helpButton, string.Empty, PremiumButtonVariant.Secondary);
-        _helpButton.MinimumSize = new Size(76, 28);
-        _helpButton.Height = 28;
+        _helpButton.MinimumSize = new Size(108, 36);
+        _helpButton.Height = 36;
         _helpButton.Margin = new Padding(0, 0, 8, 0);
-        _helpButton.Font = new Font("Segoe UI Semibold", 8F);
+        _helpButton.Font = new Font("Segoe UI Semibold", 9.5F);
         ConfigureButton(_exitButton, string.Empty, PremiumButtonVariant.Danger);
-        _exitButton.MinimumSize = new Size(76, 28);
-        _exitButton.Height = 28;
+        _exitButton.MinimumSize = new Size(108, 36);
+        _exitButton.Height = 36;
         _exitButton.Margin = Padding.Empty;
-        _exitButton.Font = new Font("Segoe UI Semibold", 8F);
+        _exitButton.Font = new Font("Segoe UI Semibold", 9.5F);
         var exitGap = new Panel
         {
             BackColor = Color.Transparent,
             Margin = Padding.Empty,
-            Size = new Size(18, 28),
+            Size = new Size(18, 36),
         };
         actionLayout.Controls.Add(_exitButton);
         actionLayout.Controls.Add(exitGap);
@@ -582,14 +582,14 @@ internal sealed class MainForm : Form
 
             if (_filesGrid.Columns.Count >= 8)
             {
-                _filesGrid.Columns[0].HeaderText = T("ColumnSelect");
-                _filesGrid.Columns[1].HeaderText = T("ColumnOrder");
-                _filesGrid.Columns[2].HeaderText = T("ColumnPdf");
-                _filesGrid.Columns[3].HeaderText = T("ColumnType");
-                _filesGrid.Columns[4].HeaderText = T("ColumnPageCount");
-                _filesGrid.Columns[5].HeaderText = T("ColumnFolder");
-                _filesGrid.Columns[6].HeaderText = T("ColumnSize");
-                _filesGrid.Columns[7].HeaderText = T("ColumnStatus");
+                _filesGrid.Columns[0].HeaderText = T("ColumnStatus");
+                _filesGrid.Columns[1].HeaderText = T("ColumnSelect");
+                _filesGrid.Columns[2].HeaderText = T("ColumnOrder");
+                _filesGrid.Columns[3].HeaderText = T("ColumnPdf");
+                _filesGrid.Columns[4].HeaderText = T("ColumnType");
+                _filesGrid.Columns[5].HeaderText = T("ColumnPageCount");
+                _filesGrid.Columns[6].HeaderText = T("ColumnFolder");
+                _filesGrid.Columns[7].HeaderText = T("ColumnSize");
             }
 
             foreach (var item in _pdfFiles)
@@ -701,12 +701,20 @@ internal sealed class MainForm : Form
         };
         _filesGrid.DataSource = _pdfFiles;
 
+        _filesGrid.Columns.Add(new DataGridViewTextBoxColumn
+        {
+            DataPropertyName = nameof(PdfFileItem.Status),
+            HeaderText = "Durum",
+            FillWeight = 14,
+            MinimumWidth = 108,
+            ReadOnly = true,
+        });
         _filesGrid.Columns.Add(new DataGridViewCheckBoxColumn
         {
             DataPropertyName = nameof(PdfFileItem.IsSelected),
             HeaderText = "Seç",
-            FillWeight = 10,
-            MinimumWidth = 50,
+            FillWeight = 8,
+            MinimumWidth = 48,
             ReadOnly = false,
             SortMode = DataGridViewColumnSortMode.NotSortable,
         });
@@ -714,32 +722,32 @@ internal sealed class MainForm : Form
         {
             DataPropertyName = nameof(PdfFileItem.Order),
             HeaderText = "Sıra",
-            FillWeight = 12,
-            MinimumWidth = 55,
+            FillWeight = 6,
+            MinimumWidth = 46,
             ReadOnly = true,
         });
         _filesGrid.Columns.Add(new DataGridViewTextBoxColumn
         {
             DataPropertyName = nameof(PdfFileItem.FileName),
             HeaderText = "Dosya",
-            FillWeight = 50,
-            MinimumWidth = 180,
+            FillWeight = 62,
+            MinimumWidth = 220,
             ReadOnly = true,
         });
         _filesGrid.Columns.Add(new DataGridViewTextBoxColumn
         {
             DataPropertyName = nameof(PdfFileItem.FileType),
             HeaderText = "Tür",
-            FillWeight = 14,
-            MinimumWidth = 65,
+            FillWeight = 8,
+            MinimumWidth = 56,
             ReadOnly = true,
         });
         _filesGrid.Columns.Add(new DataGridViewTextBoxColumn
         {
             DataPropertyName = nameof(PdfFileItem.PageCountText),
             HeaderText = "Sayfa Sayısı",
-            FillWeight = 22,
-            MinimumWidth = 105,
+            FillWeight = 12,
+            MinimumWidth = 108,
             ReadOnly = true,
             DefaultCellStyle = new DataGridViewCellStyle
             {
@@ -751,26 +759,19 @@ internal sealed class MainForm : Form
         {
             DataPropertyName = nameof(PdfFileItem.DirectoryName),
             HeaderText = "Klasör",
-            FillWeight = 38,
-            MinimumWidth = 160,
+            FillWeight = 46,
+            MinimumWidth = 180,
             ReadOnly = true,
         });
         _filesGrid.Columns.Add(new DataGridViewTextBoxColumn
         {
             DataPropertyName = nameof(PdfFileItem.SizeText),
             HeaderText = "Boyut",
-            FillWeight = 18,
-            MinimumWidth = 80,
+            FillWeight = 10,
+            MinimumWidth = 76,
             ReadOnly = true,
         });
-        _filesGrid.Columns.Add(new DataGridViewTextBoxColumn
-        {
-            DataPropertyName = nameof(PdfFileItem.Status),
-            HeaderText = "Durum",
-            FillWeight = 22,
-            MinimumWidth = 105,
-            ReadOnly = true,
-        });
+        _filesGrid.CellFormatting += FilesGridOnCellFormatting;
     }
 
     private void WireEvents()
@@ -804,7 +805,10 @@ internal sealed class MainForm : Form
 
     private void FilesGridOnCellValueChanged(object? sender, DataGridViewCellEventArgs e)
     {
-        if (e.RowIndex < 0 || e.ColumnIndex != 0 || _printCancellation is not null)
+        if (e.RowIndex < 0 ||
+            e.ColumnIndex < 0 ||
+            _printCancellation is not null ||
+            _filesGrid.Columns[e.ColumnIndex].DataPropertyName != nameof(PdfFileItem.IsSelected))
         {
             return;
         }
@@ -941,32 +945,28 @@ internal sealed class MainForm : Form
                 RebuildFileTypeFilters(sourceKey, allPaths);
             }
 
-            var selectedExtensions = _fileTypeCheckBoxes
-                .Where(pair => pair.Value.Checked)
-                .Select(pair => pair.Key)
-                .ToHashSet(StringComparer.OrdinalIgnoreCase);
-            var paths = allPaths
-                .Where(path => selectedExtensions.Contains(Path.GetExtension(path)))
-                .ToArray();
+            var selectedExtensions = SelectedFileTypeExtensions();
 
-            for (var index = 0; index < paths.Length; index++)
+            for (var index = 0; index < allPaths.Length; index++)
             {
-                var file = new FileInfo(paths[index]);
+                var file = new FileInfo(allPaths[index]);
+                var included = selectedExtensions.Contains(file.Extension);
                 var item = new PdfFileItem
                 {
                     Order = index + 1,
                     FullPath = file.FullName,
                     SizeBytes = file.Length,
+                    IsSelected = included,
                 };
-                SetItemState(item, PdfPrintState.Waiting);
+                SetItemState(item, included ? PdfPrintState.Waiting : PdfPrintState.NotSelected);
                 _pdfFiles.Add(item);
             }
 
             UpdateSelectionSummary();
 
-            _statusLabel.Text = paths.Length == 0
+            _statusLabel.Text = allPaths.Length == 0
                 ? T("NoFiles")
-                : T("FilesFound", paths.Length);
+                : T("FilesFound", allPaths.Length);
 
             StartPageCountLoading();
         }
@@ -1191,8 +1191,58 @@ internal sealed class MainForm : Form
     {
         if (!_updatingFileTypes)
         {
-            LoadFiles(rebuildFileTypes: false);
+            ApplyFileTypeSelection();
         }
+    }
+
+    private HashSet<string> SelectedFileTypeExtensions() =>
+        _fileTypeCheckBoxes
+            .Where(pair => pair.Value.Checked)
+            .Select(pair => pair.Key)
+            .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+    private void ApplyFileTypeSelection()
+    {
+        if (_printCancellation is not null)
+        {
+            return;
+        }
+
+        var selectedExtensions = SelectedFileTypeExtensions();
+        foreach (var item in _pdfFiles)
+        {
+            var included = selectedExtensions.Contains(Path.GetExtension(item.FullPath));
+            item.IsSelected = included;
+            SetItemState(
+                item,
+                !included
+                    ? PdfPrintState.NotSelected
+                    : IsItemPrintable(item)
+                        ? PdfPrintState.Waiting
+                        : PdfPrintState.Unavailable);
+        }
+
+        _filesGrid.Invalidate();
+        UpdateSelectionSummary();
+        UpdatePrintButtonState();
+    }
+
+    private void FilesGridOnCellFormatting(object? sender, DataGridViewCellFormattingEventArgs e)
+    {
+        if (e.RowIndex < 0 ||
+            _filesGrid.Rows[e.RowIndex].DataBoundItem is not PdfFileItem item ||
+            e.CellStyle is null)
+        {
+            return;
+        }
+
+        if (item.IsSelected)
+        {
+            return;
+        }
+
+        e.CellStyle.ForeColor = PremiumPalette.Muted;
+        e.CellStyle.SelectionForeColor = PremiumPalette.Muted;
     }
 
     private void ShowHelp()

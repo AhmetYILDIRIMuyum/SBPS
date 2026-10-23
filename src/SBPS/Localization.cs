@@ -48,7 +48,7 @@ internal static class AppLocalization
             ["HelpClose"] = ("Kapat", "Close"),
             ["HelpFooter"] = ("© 2026 Ahmet YILDIRIM [dede]. Telif ve geliştirme hakları saklıdır.   ahmetyildirimuyum@gmail.com", "© 2026 Ahmet YILDIRIM [dede]. Copyright and development rights reserved.   ahmetyildirimuyum@gmail.com"),
             ["HelpFolderTitle"] = ("Klasör ve dosya seçimi", "Folder and file selection"),
-            ["HelpFolderBody"] = ("Yolu yazın veya Klasör Seç kullanın. Yazdırılacak tipleri işaretleyin; PDF varsa başlangıçta seçilidir. Seç kutusu dosyayı kuyruğa alır. Liste dosya adına göredir.", "Type a path or use Choose Folder. Mark the types to print; PDF starts selected when present. The Select box adds a file to the queue. The list is ordered by file name."),
+            ["HelpFolderBody"] = ("Yolu yazın veya Klasör Seç kullanın. Tip işaretini kaldırmak satırı silmez, yalnızca seçimini kapatır. Liste dosya adına göredir.", "Type a path or use Choose Folder. Clearing a type keeps the row and turns off its selection. The list is ordered by file name."),
             ["HelpPageTitle"] = ("Sayfa sayısı", "Page count"),
             ["HelpPageBody"] = ("Sayfa Sayısı sütunu güvenli okunan değeri gösterir. Görseller 1 sayfadır. Metin ve web belgeleri yazdırmada belirlenir. Okunamayan dosyada Hesaplanamadı yazar.", "Page Count shows a value only when it can be read safely. Images are 1 page. Text and web files are determined at print time. Unreadable files show Unavailable."),
             ["HelpStatsTitle"] = ("Yazdırma istatistikleri", "Print statistics"),
