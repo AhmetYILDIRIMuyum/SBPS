@@ -232,7 +232,8 @@ internal sealed class MainForm : Form
         _showToolTipsCheckBox.FlatStyle = FlatStyle.Flat;
         _showToolTipsCheckBox.Font = new Font("Segoe UI Semibold", 9F);
         _showToolTipsCheckBox.ForeColor = Color.White;
-        _showToolTipsCheckBox.BackColor = Color.Transparent;
+        _showToolTipsCheckBox.BackColor = Color.FromArgb(24, 58, 112);
+        _showToolTipsCheckBox.UseVisualStyleBackColor = false;
         _showToolTipsCheckBox.Margin = new Padding(0, 8, 12, 0);
         var exitGap = new Panel
         {
