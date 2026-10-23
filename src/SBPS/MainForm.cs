@@ -580,7 +580,7 @@ internal sealed class MainForm : Form
             UpdateSelectionSummary();
             UpdateFileTypeTexts();
 
-            if (_filesGrid.Columns.Count >= 8)
+            if (_filesGrid.Columns.Count >= 9)
             {
                 _filesGrid.Columns[0].HeaderText = T("ColumnStatus");
                 _filesGrid.Columns[1].HeaderText = T("ColumnSelect");
@@ -589,7 +589,8 @@ internal sealed class MainForm : Form
                 _filesGrid.Columns[4].HeaderText = T("ColumnType");
                 _filesGrid.Columns[5].HeaderText = T("ColumnPageCount");
                 _filesGrid.Columns[6].HeaderText = T("ColumnFolder");
-                _filesGrid.Columns[7].HeaderText = T("ColumnSize");
+                _filesGrid.Columns[7].HeaderText = T("ColumnSizeValue");
+                _filesGrid.Columns[8].HeaderText = T("ColumnSizeUnit");
             }
 
             foreach (var item in _pdfFiles)
@@ -765,10 +766,23 @@ internal sealed class MainForm : Form
         });
         _filesGrid.Columns.Add(new DataGridViewTextBoxColumn
         {
-            DataPropertyName = nameof(PdfFileItem.SizeText),
-            HeaderText = "Boyut",
-            FillWeight = 10,
-            MinimumWidth = 76,
+            DataPropertyName = nameof(PdfFileItem.SizeValue),
+            HeaderText = "Değer",
+            FillWeight = 8,
+            MinimumWidth = 64,
+            ReadOnly = true,
+            DefaultCellStyle = new DataGridViewCellStyle
+            {
+                Alignment = DataGridViewContentAlignment.MiddleRight,
+                Padding = new Padding(8, 0, 8, 0),
+            },
+        });
+        _filesGrid.Columns.Add(new DataGridViewTextBoxColumn
+        {
+            DataPropertyName = nameof(PdfFileItem.SizeUnit),
+            HeaderText = "Birim",
+            FillWeight = 6,
+            MinimumWidth = 52,
             ReadOnly = true,
         });
         _filesGrid.CellFormatting += FilesGridOnCellFormatting;

@@ -31,7 +31,9 @@ internal sealed class PdfFileItem : INotifyPropertyChanged
     public string FileName => Path.GetFileName(FullPath);
     public string FileType => Path.GetExtension(FullPath).TrimStart('.').ToUpperInvariant();
     public string DirectoryName => Path.GetDirectoryName(FullPath) ?? string.Empty;
-    public string SizeText => FormatSize(SizeBytes);
+    public string SizeValue => FormatSize(SizeBytes).Value;
+
+    public string SizeUnit => FormatSize(SizeBytes).Unit;
 
     public int? PageCount
     {
@@ -113,7 +115,7 @@ internal sealed class PdfFileItem : INotifyPropertyChanged
     private void OnPropertyChanged([CallerMemberName] string? propertyName = null) =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-    private static string FormatSize(long bytes)
+    private static (string Value, string Unit) FormatSize(long bytes)
     {
         string[] units = ["B", "KB", "MB", "GB"];
         var value = (double)bytes;
@@ -125,6 +127,6 @@ internal sealed class PdfFileItem : INotifyPropertyChanged
             unitIndex++;
         }
 
-        return $"{value:0.##} {units[unitIndex]}";
+        return ($"{value:0.##}", units[unitIndex]);
     }
 }
