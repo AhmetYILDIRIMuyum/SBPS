@@ -58,7 +58,7 @@ internal static class AppLocalization
             ["HelpPrintTitle"] = ("Yazıcıya gönderme", "Sending to the printer"),
             ["HelpPrintBody"] = ("Yazıcıyı ve çift tarafı seçin. Ayrıntı için Önce ayarları göster'i açın. Hata olursa kalan dosyalar gitmez. Çıkış, yazdırma sürerken onay ister.", "Choose the printer and two-sided printing. Turn on Show settings first for the detailed dialog. After an error, remaining files are not sent. Exit asks for confirmation while printing."),
             ["HelpFormatsTitle"] = ("Desteklenen türler", "Supported types"),
-            ["HelpFormatsBody"] = ("PDF, JPG/JPEG, PNG, BMP, GIF, WEBP, SVG, TXT, CSV, XML, HTML ve HTM. Yalnızca seçili ve kullanılabilir dosyalar yazdırılır.", "PDF, JPG/JPEG, PNG, BMP, GIF, WEBP, SVG, TXT, CSV, XML, HTML, and HTM. Only selected and available files are printed."),
+            ["HelpFormatsBody"] = ("PDF, JPG/JPEG, JFIF, PNG, BMP, GIF, WEBP, SVG, AVIF, ICO, JXL, TXT, CSV, XML, HTML, HTM, XHTML, MHT ve MHTML. Yalnızca seçili ve kullanılabilir dosyalar yazdırılır.", "PDF, JPG/JPEG, JFIF, PNG, BMP, GIF, WEBP, SVG, AVIF, ICO, JXL, TXT, CSV, XML, HTML, HTM, XHTML, MHT, and MHTML. Only selected and available files are printed."),
             ["Preparing"] = ("Yazdırma altyapısı hazırlanıyor...", "Preparing the printing engine..."),
             ["Secure"] = ("SIRALI  •  GÜVENLİ", "ORDERED  •  SAFE"),
             ["ColumnOrder"] = ("Sıra", "Order"),

@@ -14,8 +14,8 @@ internal sealed class MainForm : Form
     private static readonly TimeSpan PrintRetryDelay = TimeSpan.FromSeconds(2);
     private static readonly HashSet<string> SupportedExtensions = new(StringComparer.OrdinalIgnoreCase)
     {
-        ".pdf", ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".svg",
-        ".txt", ".csv", ".xml", ".html", ".htm",
+        ".pdf", ".jpg", ".jpeg", ".jfif", ".png", ".bmp", ".gif", ".webp", ".svg", ".avif", ".ico", ".jxl",
+        ".txt", ".csv", ".xml", ".html", ".htm", ".xhtml", ".mht", ".mhtml",
     };
     private static readonly HashSet<string> TextExtensions = new(StringComparer.OrdinalIgnoreCase)
     {

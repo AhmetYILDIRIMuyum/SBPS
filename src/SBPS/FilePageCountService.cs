@@ -35,7 +35,7 @@ internal static partial class FilePageCountService
     private static readonly HashSet<string> SinglePageImageExtensions =
         new(StringComparer.OrdinalIgnoreCase)
         {
-            ".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp", ".svg",
+            ".jpg", ".jpeg", ".jfif", ".png", ".bmp", ".gif", ".webp", ".svg", ".avif", ".ico", ".jxl",
         };
 
     private static readonly ConcurrentDictionary<PageCountCacheKey, FilePageCountResult> Cache = [];

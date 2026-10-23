@@ -37,9 +37,9 @@ Her kaynak dosya ayrı bir yazdırma işi olarak gönderilir. Kullanıcı isters
 | Kategori | Uzantılar | Sayfa bilgisi |
 |---|---|---|
 | PDF | `.pdf` | Güvenli biçimde belirlenebiliyorsa belgeden okunur; aksi halde hesaplanamadı |
-| Görsel | `.jpg`, `.jpeg`, `.png`, `.bmp`, `.gif`, `.webp`, `.svg` | Mevcut baskı akışına uygun olarak 1 |
+| Görsel | `.jpg`, `.jpeg`, `.jfif`, `.png`, `.bmp`, `.gif`, `.webp`, `.svg`, `.avif`, `.ico`, `.jxl` | Mevcut baskı akışına uygun olarak 1 |
 | Metin | `.txt`, `.csv`, `.xml` | Yazdırmada belirlenir |
-| Web | `.html`, `.htm` | Yazdırmada belirlenir |
+| Web | `.html`, `.htm`, `.xhtml`, `.mht`, `.mhtml` | Yazdırmada belirlenir |
 
 DOCX ve XLSX için yerleşik destek iddiası yoktur.
 

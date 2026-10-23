@@ -36,9 +36,9 @@ The application is designed for Windows operators who need repeatable multi-file
 | Category | Extensions | Page-count display |
 |---|---|---|
 | PDF | `.pdf` | Read from the document when safely detectable; otherwise unavailable |
-| Images | `.jpg`, `.jpeg`, `.png`, `.bmp`, `.gif`, `.webp`, `.svg` | 1 page, matching the current print flow |
+| Images | `.jpg`, `.jpeg`, `.jfif`, `.png`, `.bmp`, `.gif`, `.webp`, `.svg`, `.avif`, `.ico`, `.jxl` | 1 page, matching the current print flow |
 | Text | `.txt`, `.csv`, `.xml` | Determined at print time |
-| Web | `.html`, `.htm` | Determined at print time |
+| Web | `.html`, `.htm`, `.xhtml`, `.mht`, `.mhtml` | Determined at print time |
 
 SBPS does not claim native DOCX or XLSX support.
 
