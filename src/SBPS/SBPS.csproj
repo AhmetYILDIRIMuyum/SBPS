@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <RootNamespace>SBPS</RootNamespace>
+    <AssemblyName>SBPS</AssemblyName>
+    <Title>Smart Batch Printing Studio</Title>
+    <Product>Smart Batch Printing Studio</Product>
+    <Authors>Ahmet YILDIRIM [dede]</Authors>
+    <Company>Ahmet YILDIRIM</Company>
+    <Description>A Windows desktop application for organizing and batch-printing supported files.</Description>
+    <Copyright>Copyright © 2026 Ahmet YILDIRIM [dede]. All rights reserved.</Copyright>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.4258.31" />
+  </ItemGroup>
+
+  <!-- WebView2 paketi WinForms ve WPF derlemelerini birlikte ekler. Bu proje yalnızca
+       WinForms kullandığı için gereksiz WPF referansını çözümlemeden önce kaldırıyoruz. -->
+  <Target Name="RemoveUnusedWebView2WpfReference" BeforeTargets="ResolveAssemblyReferences">
+    <ItemGroup>
+      <Reference Remove="@(Reference)" Condition="'%(Reference.Filename)' == 'Microsoft.Web.WebView2.Wpf'" />
+    </ItemGroup>
+  </Target>
+
+</Project>
