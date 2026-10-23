@@ -44,7 +44,7 @@ SBPS does not claim native DOCX or XLSX support.
 
 ## Screenshots
 
-A repository screenshot should only be added after it is captured from a real running build. No mock screenshot is included.
+![SBPS main window](docs/images/main-window.png)
 
 ## Getting Started
 

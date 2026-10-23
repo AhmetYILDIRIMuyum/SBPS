@@ -45,7 +45,7 @@ DOCX ve XLSX için yerleşik destek iddiası yoktur.
 
 ## Ekran Görüntüsü
 
-Yalnızca gerçekten çalışan uygulamadan alınmış bir görüntü kullanılacaktır. Bu nedenle bu aşamada temsili veya sahte ekran görüntüsü eklenmemiştir.
+![SBPS ana penceresi](docs/images/main-window.png)
 
 ## Başlangıç
 
