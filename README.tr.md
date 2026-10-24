@@ -3,9 +3,9 @@
 
 # Smart Batch Printing Studio (SBPS)
 
-### Windows Toplu Yazdırma Yazılımı | PDF ve Belge Yazdırma Yönetimi
+### Windows için Çoklu Dosya Türü Destekli Toplu Yazdırma Yazılımı
 
-**Birden fazla dosyayı düzenlemek, filtrelemek ve kontrollü bir yazdırma kuyruğu üzerinden toplu olarak yazdırmak için geliştirilmiş Windows masaüstü uygulaması.**
+**Farklı dosya türlerini düzenleyin, filtreleyin ve kontrollü bir Windows yazdırma kuyruğu üzerinden toplu olarak yazdırın.**
 
 **C# · .NET 9 · Windows Forms · Microsoft Edge WebView2** teknolojileriyle geliştirilmiştir.
 
@@ -19,29 +19,31 @@
 
 ## Genel Bakış
 
-**Smart Batch Printing Studio (SBPS)**, **C#, .NET 9, Windows Forms ve Microsoft Edge WebView2** kullanılarak geliştirilmiş bir Windows masaüstü toplu yazdırma uygulamasıdır.
+**Smart Batch Printing Studio (SBPS)**, **C#, .NET 9, Windows Forms ve Microsoft Edge WebView2** teknolojileriyle geliştirilmiş, farklı dosya türlerini kontrollü bir yazdırma kuyruğu üzerinden düzenlemek, filtrelemek ve toplu olarak yazdırmak amacıyla tasarlanmış bir Windows masaüstü uygulamasıdır.
 
-Kullanıcıların bir klasörde bulunan birden fazla belgeyi, dosyaları tek tek açmak zorunda kalmadan düzenlemesini, filtrelemesini ve yazdırmasını sağlar.
+Uygulama, desteklenen farklı dosya biçimlerini içeren bir klasörü düzenli ve yönetilebilir bir yazdırma iş akışına dönüştürür.
 
-SBPS; PDF belgeleri, görseller, metin dosyaları ve web belgeleri gibi desteklenen farklı dosya türlerini içeren bir klasörü düzenli bir **yazdırma kuyruğuna** dönüştürür.
+Kullanıcılar dosyaları tek tek açmak yerine bir klasör seçebilir, mevcut dosya türlerini filtreleyebilir, dosyaları ayrı ayrı yazdırma kuyruğuna dahil edebilir veya kuyruktan çıkarabilir, Windows üzerinde kurulu bir yazıcı seçebilir, erişilebilir sayfa sayısı bilgilerini inceleyebilir ve seçilen dosyaları dosya adı sırasına göre yazdırmaya gönderebilir.
 
-Kullanıcılar klasör seçebilir, mevcut dosya türlerini filtreleyebilir, yazdırılacak belgeleri tek tek belirleyebilir, erişilebilir sayfa sayısı bilgilerini inceleyebilir, yazıcı ayarlarını yapılandırabilir ve yazdırma işlerini dosya adı sırasına göre gönderebilir.
+SBPS; PDF belgelerini, görselleri, metin dosyalarını ve web belgelerini çoklu dosya türü destekli yazdırma iş akışı kapsamında destekler.
 
-Her kaynak belge **ayrı bir yazdırma işi** olarak işlenir. Ardışık belgeler arasına isteğe bağlı boş ayırıcı sayfalar eklenebilir.
+Her kaynak dosya **ayrı bir yazdırma işi** olarak işlenir. Ardışık dosyaların arasına isteğe bağlı boş ayırıcı sayfalar eklenebilir.
 
-Uygulama, çok sayıda dosyayı düzenli, tekrarlanabilir ve yönetilebilir bir iş akışıyla yazdırmak isteyen Windows kullanıcıları ve operatörleri için tasarlanmıştır.
+Uygulama, birden fazla dosyayı tekrarlanabilir, düzenli ve yönetilebilir bir şekilde yazdırmak isteyen Windows kullanıcıları ve operatörleri için geliştirilmiştir.
 
 ### Başlıca Kullanım Alanları
 
-- Windows üzerinde toplu yazdırma
-- PDF dosyalarını toplu yazdırma
-- Birden fazla belgeyi sırayla yazdırma
+- Farklı dosya türlerini toplu yazdırma
+- Windows masaüstü ortamında yazdırma işlemleri
+- Bir klasördeki birden fazla dosyayı yazdırma
 - Klasör bazlı belge yazdırma
+- Karma dosya türleriyle yazdırma iş akışları
 - Yazdırma kuyruğu hazırlama ve yönetimi
-- Farklı dosya biçimlerini birlikte yazdırma
-- Belgeler arasına boş ayırıcı sayfa ekleyerek yazdırma
+- Belge seçimi ve dosya türüne göre filtreleme
+- İsteğe bağlı boş ayırıcı sayfalarla yazdırma
+- Kontrollü ve iptal edilebilir yazdırma işlemleri
 
-Gerçek yazdırma çıktıları, seçilen yazıcıya, yazıcı sürücüsüne ve Windows yazdırma ortamına bağlıdır.
+Gerçek yazdırma çıktıları; Windows işletim sistemine, seçilen yazıcıya, yazıcı sürücüsüne ve desteklenen belge işleme yeteneklerine bağlıdır.
 
 ---
 
@@ -52,56 +54,57 @@ Gerçek yazdırma çıktıları, seçilen yazıcıya, yazıcı sürücüsüne ve
 - Klasör yolunu manuel olarak girme
 - Windows klasör seçme penceresini kullanma
 - Sürükle-bırak yöntemiyle klasör seçimi
-- İsteğe bağlı alt klasör taraması
+- İsteğe bağlı olarak alt klasörleri tarama
 - Desteklenen dosya uzantılarını otomatik algılama
-- Klasör içeriğine göre dinamik dosya türü filtreleri oluşturma
-- Dosyaları tek tek yazdırma kuyruğuna dahil etme veya kuyruktan çıkarma
+- Klasör içeriğinden dinamik dosya türü filtreleri oluşturma
+- Dosyaları tek tek seçme veya seçimden çıkarma
 - Dosyaları dosya adı sırasına göre işleme
+- Desteklenen ve desteklenmeyen dosyalara ilişkin istatistikler
 
 ### Yazdırma Kuyruğu Yönetimi
 
 - Toplam dosya sayısını anlık görüntüleme
 - Seçilen dosya sayısını görüntüleme
 - Yazdırılabilir dosya sayısını görüntüleme
-- Desteklenen ve desteklenmeyen dosyalar için istatistikler
 - Her dosyanın yazdırma durumunu ayrı takip etme
 - Sıralı yazdırma işi gönderimi
-- Devam eden kuyruk işlemini iptal edebilme
-- Yazdırma işlemlerine ilişkin tanılama kayıtları oluşturma
+- Yazdırma kuyruğunu iptal edebilme
+- Tanılama ve işlem kayıtları oluşturma
+- Yapılandırılabilir hata yönetimi
 
 ### Sayfa Sayısı Bilgileri
 
-- Güvenli şekilde belirlenebildiğinde PDF sayfa sayısını tespit etme
-- Desteklenen görselleri mevcut yazdırma akışına uygun olarak tek sayfa kabul etme
-- Yazdırma işini başlatmadan dosya bazında sayfa sayısı bilgisini inceleme
+- PDF sayfa sayısını güvenli biçimde belirlenebildiğinde tespit etme
+- Desteklenen görsel dosyalarını tek sayfa olarak değerlendirme
+- Yazdırma işlemini başlatmadan sayfa sayısı bilgilerini inceleme
 - Bilinen içerik sayfası toplamını görüntüleme
 - Planlanan boş ayırıcı sayfa toplamını görüntüleme
-- Sayfa sayısı belirlenemediğinde bu durumu açıkça gösterme
+- Sayfa sayısı belirlenemeyen dosyaları açıkça gösterme
 
-Sayfa sayısı bilgisi, yazıcının kullanacağı fiziksel kâğıt yaprağı sayısını garanti etmez.
+Sayfa sayısı bilgileri, yazıcının kullanacağı fiziksel kâğıt yaprağı sayısını garanti etmez.
 
 ### Yazıcı Yapılandırması
 
-- Windows üzerinde kurulu yazıcıları otomatik listeleme
+- Windows üzerinde kurulu yazıcıları otomatik algılama
 - Kullanılacak yazıcıyı manuel seçme
 - Yazıcı listesini yenileme
-- Destekleyen yazıcılarda varsayılan olarak çift taraflı yazdırma seçeneği
+- Desteklenen yazıcılarda varsayılan olarak çift taraflı yazdırma
 - İsteğe bağlı Windows yazıcı ayarları penceresini açma
 - Boş ayırıcı sayfa kullanımını yapılandırma
 - Yazıcı ve sürücü yeteneklerine bağlı yazdırma seçenekleri
 
 ### Hata Yönetimi ve İptal
 
-- Dosya bazında yazdırma durumu
+- Dosya bazında işlem durumu takibi
 - Tanılama ve hata kayıtları
 - Yazdırma kuyruğunu iptal etme
-- Yapılandırılabilir hata sonrası işlem davranışı
+- Yapılandırılabilir hata işleme davranışı
 - Varsayılan olarak etkin **Hatalı Dosyaları Atla** seçeneği
-- Hata oluştuğunda kalan dosyaların gönderimini durdurabilme
+- Hata sonrasında kalan dosyaların gönderilmesini durdurabilme
 
-**Hatalı Dosyaları Atla** etkin olduğunda, bir dosyanın yazdırılması başarısız olsa bile kalan dosyalar işlenmeye devam eder.
+**Hatalı Dosyaları Atla** seçeneği etkin olduğunda bir dosyanın yazdırılamaması, kalan dosyaların işlenmesini otomatik olarak durdurmaz.
 
-Bu seçenek kapatıldığında hata sonrasında kalan dosyalar yazdırma kuyruğuna gönderilmez.
+Bu seçenek devre dışı bırakıldığında, hata sonrasında kalan dosyalar yazıcıya gönderilmez.
 
 ### Kullanıcı Arayüzü
 
@@ -113,29 +116,31 @@ Bu seçenek kapatıldığında hata sonrasında kalan dosyalar yazdırma kuyruğ
 - İsteğe bağlı bilgilendirici ipuçları
 - Bölümlere ayrılmış uygulama içi yardım ekranı
 - Özel Çıkış düğmesi
-- Aktif yazdırma sırasında kapatma işlemi için onay mekanizması
+- Aktif yazdırma sırasında uygulama kapatılırken onay isteme
 
-**İpuçları** seçeneği varsayılan olarak kapalıdır. Kullanıcı etkinleştirmedikçe ipuçları görüntülenmez.
+**İpuçları** seçeneği varsayılan olarak kapalıdır. Kullanıcı tarafından etkinleştirilmediği sürece ipuçları görüntülenmez.
 
 ---
 
 ## Desteklenen Dosya Biçimleri
 
-Smart Batch Printing Studio mevcut yazdırma altyapısında aşağıdaki belge ve görsel biçimlerini destekler.
+Smart Batch Printing Studio, mevcut yazdırma iş akışında birden fazla dosya kategorisini desteklemektedir.
 
 | Kategori | Desteklenen Uzantılar | Sayfa Sayısı |
 |---|---|---|
 | PDF belgeleri | `.pdf` | Güvenli şekilde belirlenebildiğinde tespit edilir |
 | Görseller | `.jpg`, `.jpeg`, `.jfif`, `.png`, `.bmp`, `.gif`, `.webp`, `.svg`, `.avif`, `.ico`, `.jxl` | 1 sayfa |
-| Metin belgeleri | `.txt`, `.csv`, `.xml` | Yazdırma sırasında belirlenir |
+| Metin dosyaları | `.txt`, `.csv`, `.xml` | Yazdırma sırasında belirlenir |
 | Web belgeleri | `.html`, `.htm`, `.xhtml`, `.mht`, `.mhtml` | Yazdırma sırasında belirlenir |
 
 ### Önemli Açıklamalar
 
-- Şifrelenmiş, bozuk, farklı biçimde kodlanmış veya çok büyük PDF dosyalarında sayfa sayısı belirlenemeyebilir.
+- Şifrelenmiş, bozuk, alışılmadık biçimde kodlanmış veya çok büyük PDF dosyalarında sayfa sayısı belirlenemeyebilir.
 - Desteklenen görseller, uygulamanın mevcut tek sayfalık yazdırma akışına göre işlenir.
-- Metin ve web belgelerinin sayfa düzeni, yazdırma ayarlarına ve belge işleme davranışına bağlıdır.
+- Metin ve web belgelerinin sayfa düzeni, belge işleme motoruna ve yazıcı yapılandırmasına bağlıdır.
 - Microsoft Word `.docx` ve Microsoft Excel `.xlsx` dosyaları **yerel olarak desteklenmemektedir**.
+
+**SBPS yalnızca PDF yazdırmak için geliştirilmiş bir araç değildir. Farklı dosya türlerini toplu yazdırmayı amaçlayan bir uygulamadır.**
 
 ---
 
@@ -164,47 +169,35 @@ Smart Batch Printing Studio mevcut yazdırma altyapısında aşağıdaki belge v
 
 Geliştirme için Visual Studio üzerinde **.NET desktop development** iş yükü veya doğrudan .NET SDK kullanılabilir.
 
-### Kaynak Kodun İndirilmesi
+### GitHub Deposunu Klonlama
 
-GitHub deposunu klonlayın:
+Güncel GitHub deposunu klonlayın:
 
-```powershell
-git clone https://github.com/AhmetYILDIRIMuyum/SBPS.git
-```
+    git clone https://github.com/AhmetYILDIRIMuyum/smart-batch-printing-studio.git
 
 Proje klasörüne geçin:
 
-```powershell
-cd SBPS
-```
+    cd smart-batch-printing-studio
 
 ### Bağımlılıkların Yüklenmesi
 
-```powershell
-dotnet restore .\SBPS.sln
-```
+    dotnet restore .\SBPS.sln
 
 ### Debug Derlemesi
 
-```powershell
-dotnet build .\SBPS.sln -c Debug
-```
+    dotnet build .\SBPS.sln -c Debug
 
 ### Uygulamanın Çalıştırılması
 
-```powershell
-dotnet run --project .\src\SBPS\SBPS.csproj
-```
+    dotnet run --project .\src\SBPS\SBPS.csproj
 
 ### Release Derlemesi
 
-```powershell
-dotnet build .\SBPS.sln -c Release
-```
+    dotnet build .\SBPS.sln -c Release
 
 Ayrıntılı kurulum bilgileri için:
 
-[Kurulum Dokümantasyonu](docs/INSTALLATION.md)
+[Kurulum Kılavuzu](docs/INSTALLATION.md)
 
 ---
 
@@ -212,41 +205,41 @@ Ayrıntılı kurulum bilgileri için:
 
 ### Adım 1 — Klasör Seçimi
 
-Yazdırılacak belgelerin bulunduğu klasörü seçin.
+Yazdırılacak dosyaların bulunduğu klasörü seçin.
 
-Aşağıdaki yöntemlerden birini kullanabilirsiniz:
+Kullanılabilecek yöntemler:
 
 - Klasör yolunu manuel girme
 - Windows klasör seçme penceresini kullanma
 - Klasörü uygulama penceresine sürükleyip bırakma
 
-İsteğe bağlı olarak alt klasör taramasını etkinleştirebilirsiniz.
+İsteğe bağlı olarak alt klasör taraması etkinleştirilebilir.
 
-### Adım 2 — Dosyaların Listelenmesi
+### Adım 2 — Desteklenen Dosyaların Listelenmesi
 
 Dosya listesini yenileyin.
 
-Uygulama desteklenen dosyaları belirler ve desteklenmeyen dosyaların kaç tanesinin liste dışında bırakıldığını gösterir.
+SBPS, desteklenen dosyaları algılar ve desteklenmeyen dosyaların kaç tanesinin liste dışında bırakıldığını gösterir.
 
 ### Adım 3 — Dosya Türlerinin Filtrelenmesi
 
-Yazdırma kuyruğuna dahil edilecek dosya türlerini belirleyin.
+Yazdırma kuyruğuna dahil edilmesini istediğiniz dosya türlerini seçin.
 
-Klasörde PDF dosyaları varsa başlangıçta PDF türü seçili gelir.
+Klasörde PDF dosyaları bulunuyorsa başlangıçta PDF dosya türü seçili gelir.
 
-### Adım 4 — Belgelerin Seçilmesi
+### Adım 4 — Dosyaların Seçilmesi
 
-Dosyaların yanındaki seçim kutularını kullanarak belgeleri yazdırma kuyruğuna dahil edin veya kuyruktan çıkarın.
+Dosyaların yanındaki seçim kutularını kullanarak her dosyayı yazdırma kuyruğuna dahil edin veya kuyruktan çıkarın.
 
 Toplam, seçilen ve yazdırılabilir dosya sayılarını kontrol edin.
 
 ### Adım 5 — Sayfa Sayılarının İncelenmesi
 
-Mevcut sayfa sayısı bilgilerini inceleyin.
+Erişilebilir sayfa sayısı bilgilerini inceleyin.
 
-Uygulama, bilinen içerik sayfası toplamını ve planlanan ayırıcı sayfa toplamını gösterir.
+Uygulama, bilinen içerik sayfası toplamını ve planlanan ayırıcı sayfa toplamını görüntüler.
 
-Bazı dosya biçimlerinde sayfa sayısı yalnızca yazdırma sırasında belirlenir.
+Bazı dosya biçimlerinin sayfa sayısı yalnızca yazdırma sırasında belirlenebilir.
 
 ### Adım 6 — Yazdırma Ayarlarının Yapılandırılması
 
@@ -259,7 +252,7 @@ Aşağıdaki seçenekleri kontrol edin:
 - Gelişmiş yazıcı ayarları
 - Hatalı dosyaları atlama
 
-Kullanılabilir seçenekler seçilen yazıcıya ve sürücüsüne bağlıdır.
+Kullanılabilir yazdırma seçenekleri, seçilen yazıcı ve sürücüsünün yeteneklerine bağlıdır.
 
 ### Adım 7 — Yazıcıya Gönderme
 
@@ -267,17 +260,17 @@ Kullanılabilir seçenekler seçilen yazıcıya ve sürücüsüne bağlıdır.
 
 Görüntülenen onay penceresinde işlemi onaylayın.
 
-SBPS, seçili belgeleri dosya adı sırasına göre işler.
+SBPS, seçilen dosyaları dosya adı sırasına göre işler.
 
 ### Adım 8 — İşlemin Takibi
 
-Dosya bazındaki durumları takip edin.
+Her dosyanın işlem durumunu takip edin.
 
-Gerektiğinde yazdırma kuyruğunu iptal edin.
+Gerektiğinde yazdırma işlemini iptal edin.
 
-Sorunların incelenmesi için tanılama kayıtlarını kontrol edin.
+Sorun giderme amacıyla tanılama kayıtlarını inceleyebilirsiniz.
 
-Ayrıntılı bilgi:
+Ayrıntılı kullanım bilgileri için:
 
 [Kullanım Kılavuzu](docs/USER_GUIDE.md)
 
@@ -285,45 +278,37 @@ Ayrıntılı bilgi:
 
 ## Boş Ayırıcı Sayfalar
 
-Smart Batch Printing Studio, ardışık belgeler arasına isteğe bağlı boş ayırıcı sayfa ekleyebilir.
+Smart Batch Printing Studio, ardışık dosyaların arasına isteğe bağlı boş ayırıcı sayfa ekleyebilir.
 
 Bu seçenek varsayılan olarak etkindir.
 
 Örnek:
 
-```text
-Belge_001.pdf
-       |
-       v
-Boş Ayırıcı Sayfa
-       |
-       v
-Belge_002.pdf
-       |
-       v
-Boş Ayırıcı Sayfa
-       |
-       v
-Belge_003.pdf
-```
+    Dosya_001.pdf
+           |
+           v
+    Boş Ayırıcı Sayfa
+           |
+           v
+    Dosya_002.png
+           |
+           v
+    Boş Ayırıcı Sayfa
+           |
+           v
+    Dosya_003.txt
 
-**N adet dosya** içeren bir yazdırma kuyruğunda en fazla:
+**N adet dosya** içeren bir yazdırma kuyruğunda en fazla **N − 1 ayırıcı sayfa** oluşturulur.
 
-```text
-N - 1 ayırıcı sayfa
-```
-
-oluşturulur.
-
-İlk belgeden önce veya son belgeden sonra boş ayırıcı sayfa eklenmez.
+İlk dosyadan önce veya son dosyadan sonra boş ayırıcı sayfa eklenmez.
 
 ### Önemli Sınırlama
 
-Her kaynak belge ayrı bir yazdırma işi olarak gönderilir.
+Her kaynak dosya ayrı bir yazdırma işi olarak gönderilir.
 
 Yazıcı sürücüleri çift taraflı yazdırma sınırlarını ve ayırıcı sayfa işlerini farklı şekillerde yönetebilir.
 
-Bu nedenle uygulama, bütün yazıcı modellerinde fiziksel ayırıcı sayfaların aynı şekilde üretileceğini garanti etmez.
+Uygulama, bütün yazıcı modellerinde fiziksel ayırıcı sayfaların aynı şekilde oluşturulacağını garanti etmez.
 
 ---
 
@@ -342,42 +327,38 @@ Bu nedenle uygulama, bütün yazıcı modellerinde fiziksel ayırıcı sayfalar�
 
 Projedeki tek NuGet bağımlılığı:
 
-```text
-Microsoft.Web.WebView2
-```
+`Microsoft.Web.WebView2`
 
 ---
 
 ## Proje Mimarisi
 
-Çözüm; kullanıcı etkileşimi, dosya bilgileri, yazdırma iş akışları, dil desteği ve uygulama içi yardım gibi sorumluluklara ayrılmış bileşenlerden oluşur.
+Çözüm; kullanıcı etkileşimi, dosya bilgileri, yazdırma iş akışları, dil desteği ve uygulama içi yardım gibi sorumluluklara ayrılmış bileşenlerden oluşmaktadır.
 
 ### Proje Klasör Yapısı
 
-```text
-SBPS.sln
-|
-+-- src/
-|   |
-|   +-- SBPS/
-|       |
-|       +-- SBPS.csproj
-|       +-- MainForm.cs
-|       +-- FilePageCountService.cs
-|       +-- PdfFileItem.cs
-|       +-- Localization.cs
-|       +-- HelpDialog.cs
-|       +-- PremiumControls.cs
-|       +-- Program.cs
-|       +-- app.manifest
-|
-+-- docs/
+    SBPS.sln
     |
-    +-- ARCHITECTURE.md
-    +-- INSTALLATION.md
-    +-- USER_GUIDE.md
-    +-- TROUBLESHOOTING.md
-```
+    +-- src/
+    |   |
+    |   +-- SBPS/
+    |       |
+    |       +-- SBPS.csproj
+    |       +-- MainForm.cs
+    |       +-- FilePageCountService.cs
+    |       +-- PdfFileItem.cs
+    |       +-- Localization.cs
+    |       +-- HelpDialog.cs
+    |       +-- PremiumControls.cs
+    |       +-- Program.cs
+    |       +-- app.manifest
+    |
+    +-- docs/
+        |
+        +-- ARCHITECTURE.md
+        +-- INSTALLATION.md
+        +-- USER_GUIDE.md
+        +-- TROUBLESHOOTING.md
 
 ### Temel Bileşenler
 
@@ -409,7 +390,7 @@ Uygulama içi yardım ekranını oluşturur.
 
 Uygulamanın başlangıç noktasını oluşturur.
 
-Teknik mimari hakkında ayrıntılı bilgi:
+Teknik mimari hakkında ayrıntılı bilgi için:
 
 [Mimari Dokümantasyonu](docs/ARCHITECTURE.md)
 
@@ -435,17 +416,13 @@ Yazdırma seçenekleri uygulama oturumları arasında kalıcı olarak saklanmaz.
 
 ### Yerel Uygulama Verileri
 
-SBPS, son seçilen klasörü aşağıdaki dosyada saklar:
+SBPS, son seçilen klasör bilgisini aşağıdaki dosyada saklar:
 
-```text
-%LocalAppData%\FilePrintStudio\last-folder.txt
-```
+`%LocalAppData%\FilePrintStudio\last-folder.txt`
 
 Tanılama kayıtları ve WebView2 önbelleği de aşağıdaki dizini kullanır:
 
-```text
-%LocalAppData%\FilePrintStudio
-```
+`%LocalAppData%\FilePrintStudio`
 
 Bu dizin, önceki kurulumlarla uyumluluğu korumak amacıyla kullanılmaya devam edilmektedir.
 
@@ -455,18 +432,14 @@ Bu dizin, önceki kurulumlarla uyumluluğu korumak amacıyla kullanılmaya devam
 
 Uygulamanın hedef platformu:
 
-```text
-net9.0-windows
-```
+`net9.0-windows`
 
 Aşağıdaki derleme ve geliştirme çıktıları kaynak kod yönetiminden hariç tutulmuştur:
 
-```text
-bin/
-obj/
-.vs/
-publish/
-```
+- `bin/`
+- `obj/`
+- `.vs/`
+- `publish/`
 
 ### Geliştirme Doğrulamaları
 
@@ -529,7 +502,7 @@ Yazdırma sırasında bir dosyada hata oluşursa:
 
 Seçenek devre dışı bırakıldığında, hata sonrasında kalan dosyaların yazıcıya gönderimi durdurulur.
 
-Ayrıntılı bilgi:
+Ayrıntılı bilgi için:
 
 [Sorun Giderme Kılavuzu](docs/TROUBLESHOOTING.md)
 
@@ -591,7 +564,7 @@ https://github.com/AhmetYILDIRIMuyum
 
 **Proje Deposu:**
 
-https://github.com/AhmetYILDIRIMuyum/SBPS
+https://github.com/AhmetYILDIRIMuyum/smart-batch-printing-studio
 
 **E-posta:**
 
@@ -615,7 +588,7 @@ Deponun herkese açık olması, kaynak kodu değiştirme, yeniden dağıtma veya
 
 Proje aşağıdaki konulara odaklanmaktadır:
 
-- Windows masaüstü toplu yazdırma
+- Windows masaüstü ortamında toplu yazdırma
 - Farklı dosya biçimlerinin işlenmesi
 - Yazdırma kuyruğu yönetimi
 - Yazıcı yapılandırması
@@ -634,7 +607,7 @@ Değişiklikler yayımlandığında Debug ve Release derleme sonuçları belgele
 
 | Kaynak | Bağlantı |
 |---|---|
-| GitHub Deposu | [Smart Batch Printing Studio](https://github.com/AhmetYILDIRIMuyum/SBPS) |
+| GitHub Deposu | [Smart Batch Printing Studio](https://github.com/AhmetYILDIRIMuyum/smart-batch-printing-studio) |
 | İngilizce Dokümantasyon | [README.md](README.md) |
 | Kurulum | [Kurulum Kılavuzu](docs/INSTALLATION.md) |
 | Kullanım | [Kullanım Kılavuzu](docs/USER_GUIDE.md) |
@@ -648,7 +621,7 @@ Değişiklikler yayımlandığında Debug ve Release derleme sonuçları belgele
 
 ### Smart Batch Printing Studio (SBPS)
 
-**Windows Toplu Yazdırma Yazılımı | PDF Toplu Yazdırma | Belge Yazdırma Kuyruğu Yönetimi**
+**Çoklu Dosya Türü Destekli Toplu Yazdırma | Windows Masaüstü Yazdırma | Yazdırma Kuyruğu Yönetimi**
 
 **C# · .NET 9 · Windows Forms · Microsoft Edge WebView2**
 
