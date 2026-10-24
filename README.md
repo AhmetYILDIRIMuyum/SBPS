@@ -3,9 +3,9 @@
 
 # Smart Batch Printing Studio (SBPS)
 
-### Windows Batch Printing Software | PDF & Document Print Management
+### Multi-Format Batch Printing Software for Windows
 
-**A Windows desktop application for organizing, filtering, and batch-printing multiple files through a controlled print queue.**
+**Organize, filter, and batch-print multiple file types through a controlled Windows print queue.**
 
 Built with **C# · .NET 9 · Windows Forms · Microsoft Edge WebView2**
 
@@ -19,29 +19,31 @@ Built with **C# · .NET 9 · Windows Forms · Microsoft Edge WebView2**
 
 ## Overview
 
-**Smart Batch Printing Studio (SBPS)** is a Windows desktop batch printing application developed using **C#, .NET 9, Windows Forms, and Microsoft Edge WebView2**.
+**Smart Batch Printing Studio (SBPS)** is a Windows desktop application developed with **C#, .NET 9, Windows Forms, and Microsoft Edge WebView2** for organizing, filtering, and batch-printing multiple file types through a controlled print queue.
 
-It helps users organize, filter, and print multiple documents from a single folder without manually opening each file.
+The application transforms a folder containing different supported file formats into an organized printing workflow.
 
-SBPS transforms a folder containing supported PDF documents, images, text files, and web documents into an organized printing queue.
+Instead of opening files individually, users can select a folder, filter available file types, include or exclude individual files, choose an installed Windows printer, review available page-count information, and submit the selected files in file-name order.
 
-Users can select a folder, filter available file types, choose individual documents, review available page-count information, configure printer settings, and submit print jobs in file-name order.
+SBPS supports PDF documents, images, text files, and web documents as part of its multi-format printing workflow.
 
-Each source document is processed as a **separate print job**, with optional blank separator pages between consecutive files.
+Each source file is processed as a **separate print job**. Optional blank separator pages can be inserted between consecutive files.
 
-The application is designed for Windows operators who need a repeatable and manageable workflow for printing multiple files.
+The application is designed for Windows users and operators who need a repeatable and manageable solution for printing multiple files.
 
 ### Primary Use Cases
 
-- Windows batch printing
-- PDF batch printing
-- Multiple document printing
+- Multi-format batch printing
+- Windows desktop printing
+- Printing multiple files from a folder
 - Folder-based document printing
+- Mixed-file printing workflows
 - Print queue preparation and management
-- Mixed-format file printing
-- Document printing with blank separator pages
+- Document selection and filtering
+- Printing with optional blank separator pages
+- Controlled and cancellable print processing
 
-Actual output depends on the selected printer, printer driver, and Windows printing environment.
+Actual output depends on Windows, the selected printer, its driver, and the supported rendering capabilities.
 
 ---
 
@@ -54,31 +56,32 @@ Actual output depends on the selected printer, printer driver, and Windows print
 - Drag-and-drop folder selection
 - Optional recursive subfolder scanning
 - Automatic detection of supported file extensions
-- Dynamic file-type filtering based on folder contents
-- Individual document selection and exclusion
+- Dynamic file-type filters generated from folder contents
+- Individual file selection and exclusion
 - File processing in file-name order
+- Supported and unsupported file statistics
 
 ### Print Queue Management
 
 - Real-time total file count
 - Selected file count
 - Printable file count
-- Supported and unsupported file statistics
-- Per-file printing status
-- Ordered document submission
+- Individual file printing status
+- Ordered print job submission
 - Cancellable queue processing
-- Diagnostic logging for print operations
+- Diagnostic logging
+- Configurable failure handling
 
 ### Page Count Information
 
-- PDF page-count detection when safely available
+- Best-effort PDF page-count detection
 - One-page representation for supported image formats
 - Page-count information without starting a print job
 - Known content-page totals
 - Planned blank separator-page totals
-- Clear indication when page-count information is unavailable
+- Clear indication when page counts are unavailable
 
-Page-count information does not guarantee the number of physical sheets produced by the printer.
+Page-count information does not guarantee the number of physical sheets produced by a printer.
 
 ### Printer Configuration
 
@@ -88,40 +91,40 @@ Page-count information does not guarantee the number of physical sheets produced
 - Duplex printing enabled by default when supported
 - Optional Windows printer settings dialog
 - Configurable blank separator pages
-- Printing options controlled by printer and driver capabilities
+- Printer and driver capability awareness
 
 ### Error Handling and Cancellation
 
-- Per-file printing status
+- Per-file status tracking
 - Diagnostic error logging
 - Queue cancellation
-- Configurable failure handling
+- Configurable error handling
 - **Skip failed files** enabled by default
-- Option to stop processing remaining files after an error
+- Option to stop submitting remaining files after a failure
 
-When **Skip failed files** is enabled, an individual file failure does not automatically prevent the remaining queue from being processed.
+When **Skip failed files** is enabled, a failed file does not automatically stop the remaining queue.
 
-Disabling this option stops further queue submissions after a failure.
+When disabled, a failure prevents further files from being submitted.
 
 ### User Interface
 
 - Windows Forms desktop interface
 - High-DPI-aware layout
-- Turkish and English localization
-- Language initially selected from Windows regional settings
+- Turkish and English language support
+- Initial language selection from Windows regional settings
 - Runtime language switching
 - Optional contextual tips
 - Sectioned in-application help
 - Dedicated Exit button
-- Confirmation when closing during an active printing operation
+- Confirmation before closing during active printing
 
-The **Tips** option is disabled by default and only displays guidance when explicitly enabled.
+The **Tips** option is disabled by default. Tips remain hidden until explicitly enabled.
 
 ---
 
 ## Supported File Formats
 
-Smart Batch Printing Studio currently supports the following document and image formats.
+Smart Batch Printing Studio supports multiple file categories in its current printing workflow.
 
 | Category | Supported Extensions | Page Count |
 |---|---|---|
@@ -133,9 +136,11 @@ Smart Batch Printing Studio currently supports the following document and image 
 ### Important Notes
 
 - PDF page counts may be unavailable for encrypted, damaged, unusually encoded, or very large files.
-- Supported image files follow the application's current one-page printing workflow.
-- Text and web document pagination depends on print settings and rendering behavior.
+- Supported images follow the application's current one-page printing workflow.
+- Text and web document pagination depends on the rendering engine and printer configuration.
 - Microsoft Word `.docx` and Microsoft Excel `.xlsx` files are **not natively supported**.
+
+**SBPS is a multi-format batch printing application, not a PDF-only printing tool.**
 
 ---
 
@@ -162,20 +167,18 @@ Smart Batch Printing Studio currently supports the following document and image 
 | Alternative Development | .NET CLI |
 | Printing | At least one installed Windows printer |
 
-For development, install the .NET desktop development workload in Visual Studio or use the .NET SDK directly.
+For development, install the **.NET desktop development** workload in Visual Studio or use the .NET SDK directly.
 
-### Download and Clone
-
-Clone the repository:
+### Clone the Repository
 
 ```powershell
-git clone https://github.com/AhmetYILDIRIMuyum/SBPS.git
+git clone https://github.com/AhmetYILDIRIMuyum/smart-batch-printing-studio.git
 ```
 
-Navigate to the project directory:
+Navigate to the repository directory:
 
 ```powershell
-cd SBPS
+cd smart-batch-printing-studio
 ```
 
 ### Restore Dependencies
@@ -202,7 +205,7 @@ dotnet run --project .\src\SBPS\SBPS.csproj
 dotnet build .\SBPS.sln -c Release
 ```
 
-For detailed installation information, see:
+For detailed installation information:
 
 [Installation Guide](docs/INSTALLATION.md)
 
@@ -212,9 +215,9 @@ For detailed installation information, see:
 
 ### Step 1 — Select a Folder
 
-Choose a folder containing documents to print.
+Choose a folder containing files to print.
 
-You can:
+Available methods:
 
 - Enter a folder path manually
 - Select a folder using the Windows dialog
@@ -226,40 +229,40 @@ Optionally enable subfolder scanning.
 
 Refresh the file list.
 
-The application identifies supported files and reports the number of unsupported files excluded from the queue.
+SBPS detects supported files and reports the number of unsupported files excluded from the queue.
 
 ### Step 3 — Filter File Types
 
-Choose which detected file types should appear in the printing queue.
+Select the detected file types to include in the printing queue.
 
-PDF is selected initially when PDF files are available.
+PDF is selected initially when PDF files exist in the folder.
 
-### Step 4 — Select Documents
+### Step 4 — Select Files
 
-Use the checkboxes to include or exclude individual files.
+Use the per-file checkboxes to include or exclude individual files.
 
 Review the total, selected, and printable file statistics.
 
 ### Step 5 — Review Page Counts
 
-Inspect available page-count information.
+Inspect the available page-count information.
 
 The application displays known content-page totals and planned separator-page totals.
 
-Some formats determine their page count only during printing.
+Some file formats determine their page counts only during printing.
 
 ### Step 6 — Configure Printing
 
 Select an installed Windows printer.
 
-Review:
+Review the available options:
 
 - Duplex printing
 - Blank separator pages
 - Advanced printer settings
 - Skip failed files
 
-Printer capabilities depend on the selected device and its driver.
+Available printer capabilities depend on the selected printer and its driver.
 
 ### Step 7 — Send to Printer
 
@@ -267,17 +270,17 @@ Click **Send to Printer**.
 
 Confirm the operation when prompted.
 
-SBPS processes the selected documents in file-name order.
+SBPS processes the selected files in file-name order.
 
 ### Step 8 — Monitor Processing
 
 Review individual file statuses.
 
-Cancel processing when needed.
+Cancel processing if necessary.
 
 Diagnostic logs are available for troubleshooting.
 
-For additional instructions, see:
+For additional instructions:
 
 [User Guide](docs/USER_GUIDE.md)
 
@@ -285,39 +288,33 @@ For additional instructions, see:
 
 ## Blank Separator Pages
 
-Smart Batch Printing Studio can insert a blank separator page between consecutive documents.
+Smart Batch Printing Studio can insert a blank separator page between consecutive files.
 
-The option is enabled by default.
+This option is enabled by default.
 
 Example:
 
-```text
-Document_001.pdf
-       |
-       v
-Blank Separator Page
-       |
-       v
-Document_002.pdf
-       |
-       v
-Blank Separator Page
-       |
-       v
-Document_003.pdf
-```
+    File_001.pdf
+           |
+           v
+    Blank Separator Page
+           |
+           v
+    File_002.png
+           |
+           v
+    Blank Separator Page
+           |
+           v
+    File_003.txt
 
-For a queue containing **N files**, SBPS creates at most:
+For a queue containing **N files**, SBPS creates at most **N − 1 separator pages**.
 
-```text
-N - 1 separator pages
-```
-
-A blank separator page is not inserted before the first document or after the final document.
+A blank separator page is not inserted before the first file or after the last file.
 
 ### Important Limitation
 
-Each source document is submitted as a separate print job.
+Each source file is submitted as a separate print job.
 
 Printer drivers may handle duplex boundaries and separator jobs differently.
 
@@ -340,9 +337,7 @@ The application cannot guarantee identical physical separator behavior across al
 
 The only NuGet dependency is:
 
-```text
-Microsoft.Web.WebView2
-```
+`Microsoft.Web.WebView2`
 
 ---
 
@@ -352,30 +347,28 @@ The solution is organized into application components responsible for user inter
 
 ### Project Structure
 
-```text
-SBPS.sln
-|
-+-- src/
-|   |
-|   +-- SBPS/
-|       |
-|       +-- SBPS.csproj
-|       +-- MainForm.cs
-|       +-- FilePageCountService.cs
-|       +-- PdfFileItem.cs
-|       +-- Localization.cs
-|       +-- HelpDialog.cs
-|       +-- PremiumControls.cs
-|       +-- Program.cs
-|       +-- app.manifest
-|
-+-- docs/
+    SBPS.sln
     |
-    +-- ARCHITECTURE.md
-    +-- INSTALLATION.md
-    +-- USER_GUIDE.md
-    +-- TROUBLESHOOTING.md
-```
+    +-- src/
+    |   |
+    |   +-- SBPS/
+    |       |
+    |       +-- SBPS.csproj
+    |       +-- MainForm.cs
+    |       +-- FilePageCountService.cs
+    |       +-- PdfFileItem.cs
+    |       +-- Localization.cs
+    |       +-- HelpDialog.cs
+    |       +-- PremiumControls.cs
+    |       +-- Program.cs
+    |       +-- app.manifest
+    |
+    +-- docs/
+        |
+        +-- ARCHITECTURE.md
+        +-- INSTALLATION.md
+        +-- USER_GUIDE.md
+        +-- TROUBLESHOOTING.md
 
 ### Main Components
 
@@ -435,15 +428,11 @@ Printing selections are not persisted between application sessions.
 
 SBPS stores the last selected folder in:
 
-```text
-%LocalAppData%\FilePrintStudio\last-folder.txt
-```
+`%LocalAppData%\FilePrintStudio\last-folder.txt`
 
 Diagnostic logs and the WebView2 cache also use:
 
-```text
-%LocalAppData%\FilePrintStudio
-```
+`%LocalAppData%\FilePrintStudio`
 
 This location is retained for compatibility with earlier installations.
 
@@ -453,18 +442,14 @@ This location is retained for compatibility with earlier installations.
 
 The application targets:
 
-```text
-net9.0-windows
-```
+`net9.0-windows`
 
 The following generated directories are intentionally excluded from source control:
 
-```text
-bin/
-obj/
-.vs/
-publish/
-```
+- `bin/`
+- `obj/`
+- `.vs/`
+- `publish/`
 
 ### Development Validation
 
@@ -589,7 +574,7 @@ https://github.com/AhmetYILDIRIMuyum
 
 **Project Repository:**
 
-https://github.com/AhmetYILDIRIMuyum/SBPS
+https://github.com/AhmetYILDIRIMuyum/smart-batch-printing-studio
 
 **Email:**
 
@@ -614,7 +599,7 @@ Public repository visibility does not imply permission to modify, redistribute, 
 The project currently focuses on:
 
 - Windows desktop batch printing
-- Multi-format document processing
+- Multi-format file processing
 - Print queue management
 - Printer configuration
 - File selection and filtering
@@ -632,7 +617,7 @@ No production-readiness, commercial-support, or release-support guarantee is imp
 
 | Resource | Link |
 |---|---|
-| GitHub Repository | [Smart Batch Printing Studio](https://github.com/AhmetYILDIRIMuyum/SBPS) |
+| GitHub Repository | [Smart Batch Printing Studio](https://github.com/AhmetYILDIRIMuyum/smart-batch-printing-studio) |
 | Turkish Documentation | [README.tr.md](README.tr.md) |
 | Installation | [Installation Guide](docs/INSTALLATION.md) |
 | User Guide | [User Guide](docs/USER_GUIDE.md) |
@@ -646,7 +631,7 @@ No production-readiness, commercial-support, or release-support guarantee is imp
 
 ### Smart Batch Printing Studio (SBPS)
 
-**Windows Batch Printing Software | PDF Batch Printing | Document Print Queue Management**
+**Multi-Format Batch Printing | Windows Desktop Printing | Print Queue Management**
 
 Developed with **C# · .NET 9 · Windows Forms · Microsoft Edge WebView2**
 
